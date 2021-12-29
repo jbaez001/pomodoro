@@ -20,7 +20,7 @@ import { Pomodoro } from "./Components/Pomodoro";
 
 export const App = () =>
 (
-  <section className="App pomodoro">
+  <section className="App">
     <Pomodoro />
   </section>
 );
