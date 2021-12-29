@@ -15,15 +15,20 @@ limitations under the License.
 */
 
 import React, { useCallback, useEffect, useState } from "react";
-import { defaultStartTime } from "../Settings";
-import { toTimerStringArray } from "../Utils/ToTimerStringArray";
-import { PomodoroTimerText } from "./PomodoroTimerText";
+import { defaultStartTime } from "../../Settings";
+import { toTimerStringArray } from "../../Utils/ToTimerStringArray";
 import { PomodoroController } from "./PomodoroController";
+import { Heading, Stack, Text } from "@chakra-ui/react";
+
+interface IProps {
+  pomodoroName: string;
+}
 
 /**
  * Pomodoro main component
  */
-export const Pomodoro: React.FC = () => {
+export const Pomodoro: React.FC<IProps> = ({pomodoroName}) => {
+  const [name, setName] = useState<string>(pomodoroName);
   const [timer, setTimer] = useState<number>(defaultStartTime);
   const [pomodoroTimerText, setPomodoroTimerText] = useState<string[]>([]);
   const [intervalId, setIntervalId] = useState<number>(0);
@@ -36,7 +41,7 @@ export const Pomodoro: React.FC = () => {
     setIntervalId(newIntervalId);
   };
 
-  const handlePause = () => {
+  const handleStop = () => {
     window.clearInterval(intervalId);
   };
 
@@ -47,7 +52,8 @@ export const Pomodoro: React.FC = () => {
 
   const handleExpired = useCallback(() => {
     setTimer(0);
-  }, [intervalId]);
+    setName("Complete");
+  }, [setName]);
 
   useEffect(() => {
     setPomodoroTimerText(toTimerStringArray(timer));
@@ -56,18 +62,21 @@ export const Pomodoro: React.FC = () => {
       window.clearInterval(intervalId);
       handleExpired();
     }
-  }, [timer, handleExpired]);
+  }, [timer, intervalId, handleExpired]);
 
   return (
-    <section className="pomodoro">
-      <PomodoroTimerText
-        text={pomodoroTimerText}
-      />
+    <Stack spacing={4} bg="white" p={8} borderRadius="lg">
+      <Heading as="h1" size="md" color="primary.900">
+        {name}
+      </Heading>
+      <Text as="p" fontSize="5xl" color="primary.800">
+        {pomodoroTimerText[0]}:{pomodoroTimerText[1]}
+      </Text>
       <PomodoroController
         handleStart={handleStart}
-        handlePause={handlePause}
+        handleStop={handleStop}
         handleReset={handleReset}
       />
-    </section>
+    </Stack>
   );
 };

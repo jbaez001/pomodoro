@@ -14,13 +14,20 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+import { extendTheme } from "@chakra-ui/react";
 
-import './App.css';
-import { Pomodoro } from "./Components/Pomodoro";
+const colors = {
+  primary: {
+    100: "#946c6c",
+    200: "#946c6c",
+    300: "#885c5c",
+    400: "#7a5353",
+    500: "#6d4a4a",
+    600: "#5f4040",
+    700: "#523737",
+    800: "#442e2e",
+    900: "#362525",
+  },
+};
 
-export const App = () =>
-(
-  <section className="App">
-    <Pomodoro />
-  </section>
-);
+export const defaultTheme = extendTheme({ colors });

@@ -1,0 +1,19 @@
+.App {
+  background-color: #282c34;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  height: 100vh;
+}
+
+.pomodoro {
+}
+
+.pomodoro-controller button {
+  margin: 4px;
+  border: none;
+  font-size: calc(10px + 1vmin);
+}

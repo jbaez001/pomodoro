@@ -15,10 +15,11 @@ limitations under the License.
 */
 
 import React, { MouseEventHandler } from "react";
+import { Button } from "@chakra-ui/react";
 
 interface IProps {
   handleStart: MouseEventHandler<HTMLButtonElement>;
-  handlePause: MouseEventHandler<HTMLButtonElement>;
+  handleStop: MouseEventHandler<HTMLButtonElement>;
   handleReset: MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -31,13 +32,13 @@ interface IProps {
  */
 export const PomodoroController: React.FC<IProps> = ({
   handleStart,
-  handlePause,
+  handleStop,
   handleReset,
 }) =>
 (
   <section className="pomodoro-controller">
-    <button onClick={handleStart}>Start</button>
-    <button onClick={handlePause}>Pause</button>
-    <button onClick={handleReset}>Reset</button>
+    <Button colorScheme="primary" onClick={handleStart}>Start</Button>
+    <Button colorScheme="primary" onClick={handleStop}>Stop</Button>
+    <Button colorScheme="primary" onClick={handleReset}>Reset</Button>
   </section>
 );

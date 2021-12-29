@@ -14,21 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import React from "react";
+import './App.css';
+import { Pomodoro } from "./Pomodoro/Pomodoro";
 
-interface IProps {
-  text: string[];
-}
-
-/**
- * This is the actual timer text
- *
- * @param text string[]
- */
-export const PomodoroTimerText: React.FC<IProps> = ({ text }) => (
-  <section className="pomodoro-timer">
-    <p className="pomodoro-text">{text[0]}</p>
-    <span>:</span>
-    <p className="pomodoro-text">{text[1]}</p>
+export const App = () =>
+(
+  <section className="App">
+    <Pomodoro pomodoroName="Quick Pomodoro"/>
   </section>
 );
