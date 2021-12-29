@@ -14,15 +14,4 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-
-import React from 'react';
-import './App.css';
-import { Pomodoro } from "./Components/Pomodoro";
-
-
-export const App = () =>
-  (
-    <section className="App pomodoro">
-      <Pomodoro/>
-    </section>
-  );
+export const defaultStartTime = 25 * 60; // 25 minutes

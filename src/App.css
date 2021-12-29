@@ -1,38 +1,48 @@
+body {
+  margin: 0;
+  background-color: #282c34;
+}
+
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  font-size: calc(10px + 1vmin);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
+  height: 100vh;
 }
 
 .App-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.pomodoro {
+  font-size: calc(10px + 4vmin);
+}
+
+.pomodoro-text {
+  margin: 0;
+}
+
+.pomodoro-controller button {
+  margin: 4px;
+  padding: 3px 12px;
+  border: none;
+  background-color: lightcoral;
+  font-size: calc(10px + 1vmin);
+  cursor: pointer;
+  color: black;
+}
+
+.pomodoro-timer {
+  display: flex;
+  letter-spacing: 2px;
+  padding-left: 45px;
+}
+
+.pomodoro-timer span {
+  position: relative;
+  bottom: 2px;
 }
