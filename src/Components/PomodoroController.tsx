@@ -16,7 +16,6 @@ limitations under the License.
 
 import React, { MouseEventHandler } from "react";
 
-
 interface IProps {
   handleStart: MouseEventHandler<HTMLButtonElement>;
   handlePause: MouseEventHandler<HTMLButtonElement>;

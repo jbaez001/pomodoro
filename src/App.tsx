@@ -18,7 +18,6 @@ limitations under the License.
 import './App.css';
 import { Pomodoro } from "./Components/Pomodoro";
 
-
 export const App = () =>
 (
   <section className="App pomodoro">

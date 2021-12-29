@@ -20,7 +20,6 @@ import { toTimerStringArray } from "../Utils/ToTimerStringArray";
 import { PomodoroTimerText } from "./PomodoroTimerText";
 import { PomodoroController } from "./PomodoroController";
 
-
 /**
  * Pomodoro main component
  */

@@ -22,7 +22,7 @@ interface IProps {
 
 /**
  * This is the actual timer text
- * 
+ *
  * @param text string[]
  */
 export const PomodoroTimerText: React.FC<IProps> = ({ text }) => (
