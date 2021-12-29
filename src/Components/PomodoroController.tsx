@@ -14,12 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import React, {MouseEventHandler} from "react";
+import React, { MouseEventHandler } from "react";
 
 
 interface IProps {
   handleStart: MouseEventHandler<HTMLButtonElement>;
-  handleStop: MouseEventHandler<HTMLButtonElement>;
+  handlePause: MouseEventHandler<HTMLButtonElement>;
   handleReset: MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -30,11 +30,11 @@ interface IProps {
  * @param handleStop fn to call onClick
  * @param handleReset fn to call onClick
  */
-export const PomodoroController: React.FC<IProps> = ({ handleStart, handleStop, handleReset }) =>
-  (
-    <section className="pomodoro-controller">
-      <button onClick={handleStart}>Start</button>
-      <button onClick={handleStop}>Stop</button>
-      <button onClick={handleReset}>Reset</button>
-    </section>
-  );
+export const PomodoroController: React.FC<IProps> = ({ handleStart, handlePause, handleReset }) =>
+(
+  <section className="pomodoro-controller">
+    <button onClick={handleStart}>Start</button>
+    <button onClick={handlePause}>Pause</button>
+    <button onClick={handleReset}>Reset</button>
+  </section>
+);

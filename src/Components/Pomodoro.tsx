@@ -36,7 +36,7 @@ export const Pomodoro: React.FC = () => {
     setIntervalId(newIntervalId);
   };
 
-  const handleStop = () => {
+  const handlePause = () => {
     window.clearInterval(intervalId);
   };
 
@@ -67,7 +67,7 @@ export const Pomodoro: React.FC = () => {
       </section>
       <PomodoroController
         handleStart={handleStart}
-        handleStop={handleStop}
+        handlePause={handlePause}
         handleReset={handleReset}
       />
     </main>
