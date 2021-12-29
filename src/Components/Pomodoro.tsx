@@ -60,7 +60,7 @@ export const Pomodoro: React.FC = () => {
   }, [timer, handleExpired]);
 
   return (
-    <section>
+    <section className="pomodoro">
       <PomodoroTimerText
         text={pomodoroTimerText}
       />
