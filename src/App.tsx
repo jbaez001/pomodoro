@@ -15,14 +15,13 @@ limitations under the License.
 */
 
 
-import React from 'react';
 import './App.css';
 import { Pomodoro } from "./Components/Pomodoro";
 
 
 export const App = () =>
-  (
-    <section className="App pomodoro">
-      <Pomodoro/>
-    </section>
-  );
+(
+  <section className="App pomodoro">
+    <Pomodoro />
+  </section>
+);
