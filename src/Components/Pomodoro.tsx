@@ -46,7 +46,6 @@ export const Pomodoro: React.FC = () => {
   };
 
   const handleExpired = useCallback(() => {
-    window.clearInterval(intervalId);
     setTimer(0);
   }, [intervalId]);
 
@@ -54,6 +53,7 @@ export const Pomodoro: React.FC = () => {
     setPomodoroTimerText(toTimerStringArray(timer));
 
     if (timer <= 0) {
+      window.clearInterval(intervalId);
       handleExpired();
     }
   }, [timer, handleExpired]);
