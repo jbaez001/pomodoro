@@ -29,7 +29,11 @@ interface IProps {
  * @param handleStop fn to call onClick
  * @param handleReset fn to call onClick
  */
-export const PomodoroController: React.FC<IProps> = ({ handleStart, handlePause, handleReset }) =>
+export const PomodoroController: React.FC<IProps> = ({
+  handleStart,
+  handlePause,
+  handleReset,
+}) =>
 (
   <section className="pomodoro-controller">
     <button onClick={handleStart}>Start</button>

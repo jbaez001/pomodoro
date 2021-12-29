@@ -31,4 +31,4 @@ export const PomodoroTimerText: React.FC<IProps> = ({ text }) => (
     <span>:</span>
     <p className="pomodoro-text">{text[1]}</p>
   </section>
-)
+);
