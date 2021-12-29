@@ -15,9 +15,10 @@ limitations under the License.
 */
 
 import React, { useCallback, useEffect, useState } from "react";
-import { PomodoroController } from "./PomodoroController";
 import { defaultStartTime } from "../Settings";
 import { toTimerStringArray } from "../Utils/ToTimerStringArray";
+import { PomodoroTimerText } from "./PomodoroTimerText";
+import { PomodoroController } from "./PomodoroController";
 
 
 /**
@@ -59,17 +60,15 @@ export const Pomodoro: React.FC = () => {
   }, [timer, handleExpired]);
 
   return (
-    <main>
-      <section className="pomodoro-timer">
-        <p className="pomodoro-text">{pomodoroTimerText[0]}</p>
-        <span>:</span>
-        <p className="pomodoro-text">{pomodoroTimerText[1]}</p>
-      </section>
+    <section>
+      <PomodoroTimerText
+        text={pomodoroTimerText}
+      />
       <PomodoroController
         handleStart={handleStart}
         handlePause={handlePause}
         handleReset={handleReset}
       />
-    </main>
+    </section>
   );
 };
