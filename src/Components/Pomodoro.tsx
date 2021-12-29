@@ -15,9 +15,9 @@ limitations under the License.
 */
 
 import React, { useCallback, useEffect, useState } from "react";
-import { toPomodoroTimerText } from "../Utils/ToPomodoroTimerText";
 import { PomodoroController } from "./PomodoroController";
 import { defaultStartTime } from "../Settings";
+import { toTimerStringArray } from "../Utils/ToTimerStringArray";
 
 
 /**
@@ -51,7 +51,7 @@ export const Pomodoro: React.FC = () => {
   }, [intervalId]);
 
   useEffect(() => {
-    setPomodoroTimerText(toPomodoroTimerText(timer));
+    setPomodoroTimerText(toTimerStringArray(timer));
 
     if (timer <= 0) {
       handleExpired();

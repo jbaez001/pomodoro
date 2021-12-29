@@ -20,7 +20,7 @@ limitations under the License.
  *
  * @param timer time in seconds
  */
-export const toPomodoroTimerText = (timer: number) : string[] => {
+export const toTimerStringArray = (timer: number) : string[] => {
   const x: number = timer / 60;
   const minutes: number = Math.floor(x);
   const seconds: number = (x - minutes) * 60;
