@@ -29,7 +29,7 @@ interface IProps {
 /**
  * Pomodoro main component
  */
-export const Pomodoro: React.FC<IProps> = ({pomodoroName}) => {
+export const Pomodoro: React.FC<IProps> = ({ pomodoroName }) => {
   const [name, setName] = useState<string>(pomodoroName);
   const [timer, setTimer] = useState<number>(defaultStartTime);
   const [pomodoroTimerText, setPomodoroTimerText] = useState<string[]>([]);

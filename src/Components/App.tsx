@@ -14,25 +14,25 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { Pomodoro } from "./Pomodoro/Pomodoro";
 import { Box } from "@chakra-ui/react";
 
+import { Pomodoro } from "./Pomodoro/Pomodoro";
 import { PomodoroLayout } from "./Layouts/PomodoroLayout";
 
 export const App = () =>
 (
   <Box bg="#282c34"
-       h="100vh"
-       w="100%"
+    h="100vh"
+    w="100%"
   >
     <PomodoroLayout
       align="center"
       alignItems="center"
       children={
         <>
-          <Pomodoro pomodoroName="Pomodoro #1"/>
-          <Pomodoro pomodoroName="Pomodoro #2"/>
-          <Pomodoro pomodoroName="Pomodoro #3"/>
+          <Pomodoro pomodoroName="Pomodoro #1" />
+          <Pomodoro pomodoroName="Pomodoro #2" />
+          <Pomodoro pomodoroName="Pomodoro #3" />
         </>
       }
       flexDirection="column"
