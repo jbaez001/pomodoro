@@ -37,8 +37,24 @@ export const PomodoroController: React.FC<IProps> = ({
 }) =>
 (
   <section className="pomodoro-controller">
-    <Button colorScheme="primary" onClick={handleStart}>Start</Button>
-    <Button colorScheme="primary" onClick={handleStop}>Stop</Button>
-    <Button colorScheme="primary" onClick={handleReset}>Reset</Button>
+    <Button
+      colorScheme="primary"
+      onClick={handleStart}
+      marginRight="4px"
+    >
+      Start
+    </Button>
+    <Button
+      colorScheme="primary"
+      onClick={handleStop}>
+      Stop
+    </Button>
+    <Button
+      colorScheme="primary"
+      onClick={handleReset}
+      marginLeft="4px"
+    >
+      Reset
+    </Button>
   </section>
 );

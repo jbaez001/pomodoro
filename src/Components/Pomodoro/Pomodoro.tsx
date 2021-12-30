@@ -15,10 +15,12 @@ limitations under the License.
 */
 
 import React, { useCallback, useEffect, useState } from "react";
+import { Box, Heading, Stack, Text } from "@chakra-ui/react";
+
 import { defaultStartTime } from "../../Settings";
 import { toTimerStringArray } from "../../Utils/ToTimerStringArray";
 import { PomodoroController } from "./PomodoroController";
-import { Heading, Stack, Text } from "@chakra-ui/react";
+
 
 interface IProps {
   pomodoroName: string;
@@ -65,18 +67,26 @@ export const Pomodoro: React.FC<IProps> = ({pomodoroName}) => {
   }, [timer, intervalId, handleExpired]);
 
   return (
-    <Stack spacing={4} bg="white" p={8} borderRadius="lg">
-      <Heading as="h1" size="md" color="primary.900">
-        {name}
-      </Heading>
-      <Text as="p" fontSize="5xl" color="primary.800">
-        {pomodoroTimerText[0]}:{pomodoroTimerText[1]}
-      </Text>
-      <PomodoroController
-        handleStart={handleStart}
-        handleStop={handleStop}
-        handleReset={handleReset}
-      />
-    </Stack>
+    <Box
+      maxW="sm"
+      borderWidth="4px"
+      borderRadius="lg"
+      overflow="hidden"
+      marginTop="24px"
+    >
+      <Stack spacing={4} bg="white" p={8} borderRadius="lg">
+        <Heading as="h1" size="md" color="primary.900">
+          {name}
+        </Heading>
+        <Text as="p" fontSize="5xl" color="primary.800">
+          {pomodoroTimerText[0]}:{pomodoroTimerText[1]}
+        </Text>
+        <PomodoroController
+          handleStart={handleStart}
+          handleStop={handleStop}
+          handleReset={handleReset}
+        />
+      </Stack>
+    </Box>
   );
 };
