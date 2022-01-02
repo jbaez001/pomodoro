@@ -21,12 +21,12 @@ interface IProps {
   name: string;
 }
 
-const defaultPomodoroStartTime: number = 60 * 25;
+const defaultStartTime: number = 60 * 25;
 
 export const PomodoroCard = (props: IProps) => {
   const [previousCardName, setPreviousCardName] = useState<string>('');
   const [cardName, setCardName] = useState<string>(props.name);
-  const [cardTimer, setCardTimer] = useState<number>(defaultPomodoroStartTime);
+  const [cardTimer, setCardTimer] = useState<number>(defaultStartTime);
   const [cardText, setCardText] = useState<string>(
     toFormattedTimerString(cardTimer),
   );
@@ -35,8 +35,8 @@ export const PomodoroCard = (props: IProps) => {
   const [toggleNameChange, setToggleNameChange] = useState<boolean>(false);
 
   const resetTimer = () => {
-    setCardTimer(defaultPomodoroStartTime);
-    setCardText(toFormattedTimerString(defaultPomodoroStartTime));
+    setCardTimer(defaultStartTime);
+    setCardText(toFormattedTimerString(defaultStartTime));
     setCardExpired(false);
   };
 
