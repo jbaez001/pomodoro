@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  pomodoro:
+    image: pomodoro
+    build: .
+    container_name: pomodoro
+    restart: always
+    ports:
+      - '8080:80'

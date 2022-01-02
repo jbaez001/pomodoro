@@ -1,8 +1,5 @@
 {
-  "extends": [
-    "tslint:latest",
-    "tslint-eslint-rules"
-  ],
+  "extends": ["tslint:latest", "tslint-eslint-rules"],
   "linterOptions": {
     "format": "codeFrame"
   },
@@ -11,7 +8,7 @@
     "ban-ts-ignore": true,
     "ban-types": [true, ["Object", "Use {} instead."], ["String"]],
     "member-access": [true, "check-accessor"],
-    "member-ordering": [true, {"order": "fields-first"}],
+    "member-ordering": [true, { "order": "fields-first" }],
     "no-any": true,
     "no-empty-interface": true,
     "no-for-in": true,
@@ -65,7 +62,7 @@
     "no-sparse-arrays": true,
     "no-string-literal": true,
     "no-string-throw": true,
-    "no-submodule-imports": true,
+    // "no-submodule-imports": true,
     "no-switch-case-fall-through": true,
     "no-tautology-expression": true,
     "no-this-assignment": true,
@@ -81,7 +78,7 @@
     "switch-default": true,
     "triple-equals": true,
     "typeof-compare": true,
-    "unnecessary-constructor": [true, {"check-super-calls": true}],
+    "unnecessary-constructor": [true, { "check-super-calls": true }],
     "use-default-type-parameter": true,
     "use-isnan": true,
 
@@ -91,8 +88,11 @@
     "max-classes-per-file": [true, 1],
     "max-file-line-count": [true, 500],
     "no-default-export": true,
-    "no-default-import": [true, {"fromModules": "^palantir-|^_internal-*|^\\./|^\\.\\./"}],
-    "no-duplicate-imports": [true, {"allow-namespace-imports": true}],
+    "no-default-import": [
+      true,
+      { "fromModules": "^palantir-|^_internal-*|^\\./|^\\.\\./" }
+    ],
+    "no-duplicate-imports": [true, { "allow-namespace-imports": true }],
     "no-mergeable-namespace": true,
     "no-require-imports": true,
     "object-literal-sort-keys": true,
@@ -102,7 +102,11 @@
     "arrow-return-shorthand": [true, "multiline"],
     "binary-expression-operand-order": true,
     "class-name": true,
-    "comment-format": [true, "check-lowercase", {"ignore-words": ["TODO", "HAX"]}],
+    "comment-format": [
+      true,
+      "check-lowercase",
+      { "ignore-words": ["TODO", "HAX"] }
+    ],
     "comment-type": [true, "doc", "singleline", "multiline"],
     "completed-docs": [true, "enums", "functions", "methods"],
     "encoding": true,
@@ -147,22 +151,13 @@
     "import-spacing": true,
     "indent": [true, "spaces", 2],
     "jsdoc-format": true,
-    "max-line-length": [
-      true,
-      {
-        "limit": 120,
-        // "ignore-pattern": "^import |^export {(.*?)}",
-        "check-strings": true,
-        "check-regex": true
-      }
-    ],
     "new-parens": true,
     "newline-before-return": true,
     "no-consecutive-blank-lines": [true, 2],
     "no-irregular-whitespace": true,
-    "no-trailing-whitespace": true,
+    // "no-trailing-whitespace": true,
     "number-literal-format": true,
     "semicolon": [true, "always"],
-    "trailing-comma": [true, {"multiline": "always", "singleline": "never"}]
+    "trailing-comma": [true, { "multiline": "always", "singleline": "never" }]
   }
 }

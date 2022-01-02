@@ -14,17 +14,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import React, { ReactNode } from "react";
-import { Flex, FlexProps } from "@chakra-ui/react";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './assets/index.css';
+import { App } from './App';
+import { AppProvider } from './context';
 
-interface IProps extends FlexProps {
-  children: ReactNode;
-}
-
-export const PomodoroLayout: React.FC<IProps> = ({ children, ...props }) => (
-  <Flex
-    {...props}
-  >
-    { children }
-  </Flex>
+ReactDOM.render(
+  <AppProvider>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </AppProvider>,
+  document.getElementById('root'),
 );
