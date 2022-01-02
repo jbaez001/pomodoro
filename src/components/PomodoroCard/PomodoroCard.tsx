@@ -59,13 +59,13 @@ export const PomodoroCard = (props: IProps) => {
   const handleOnClickStart = () => {
     if (cardIntervalId) {
       return;
+    } else if (cardExpired) {
+      resetTimer();
     }
-
-    resetTimer();
 
     const intervalId: number = window.setInterval(() => {
       setCardTimer((previousState: number) => previousState - 1);
-    }, 1000);
+    }, 1);
 
     setCardIntervalId(intervalId);
   };
