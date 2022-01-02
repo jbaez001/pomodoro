@@ -15,12 +15,12 @@ limitations under the License.
 */
 
 /**
- * toFormattedTimerString returns a string of mm:ss left from the given
+ * formatTimerString returns a string of mm:ss left from the given
  * timer
  *
  * @param timer time in seconds
  */
-export const toFormattedTimerString = (timer: number): string => {
+export const formatTimerString = (timer: number): string => {
   const x: number = timer / 60;
   const minutes: number = Math.floor(x);
   const seconds: number = (x - minutes) * 60;

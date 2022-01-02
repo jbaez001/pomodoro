@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 import { useEffect, useState } from 'react';
-import { toFormattedTimerString } from '../../utils/ToFormattedTimerString';
+import { formatTimerString } from '../../utils/FormatTmerString';
 
 interface IProps {
   name: string;
@@ -28,7 +28,7 @@ export const PomodoroCard = (props: IProps) => {
   const [cardName, setCardName] = useState<string>(props.name);
   const [cardTimer, setCardTimer] = useState<number>(defaultStartTime);
   const [cardText, setCardText] = useState<string>(
-    toFormattedTimerString(cardTimer),
+    formatTimerString(cardTimer),
   );
   const [cardIntervalId, setCardIntervalId] = useState<number>(0);
   const [cardExpired, setCardExpired] = useState<boolean>(false);
@@ -36,7 +36,7 @@ export const PomodoroCard = (props: IProps) => {
 
   const resetTimer = () => {
     setCardTimer(defaultStartTime);
-    setCardText(toFormattedTimerString(defaultStartTime));
+    setCardText(formatTimerString(defaultStartTime));
     setCardExpired(false);
   };
 
@@ -49,7 +49,7 @@ export const PomodoroCard = (props: IProps) => {
 
   // hook for cardTimer
   useEffect(() => {
-    setCardText(toFormattedTimerString(cardTimer));
+    setCardText(formatTimerString(cardTimer));
 
     // check if card has expired
     if (cardTimer <= 0) {
