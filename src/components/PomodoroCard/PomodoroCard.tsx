@@ -34,15 +34,6 @@ export const PomodoroCard = (props: IProps) => {
   const [cardExpired, setCardExpired] = useState<boolean>(false);
   const [toggleNameChange, setToggleNameChange] = useState<boolean>(false);
 
-  useEffect(() => {
-    setCardText(toFormattedTimerString(cardTimer));
-
-    if (cardTimer <= 0) {
-      resetInterval();
-      setCardExpired(true);
-    }
-  }, [cardTimer]);
-
   const resetTimer = () => {
     setCardTimer(defaultPomodoroStartTime);
     setCardText(toFormattedTimerString(defaultPomodoroStartTime));
@@ -56,53 +47,16 @@ export const PomodoroCard = (props: IProps) => {
     }
   };
 
-  const handleOnClickStart = () => {
-    if (cardIntervalId) {
-      return;
+  // hook for cardTimer
+  useEffect(() => {
+    setCardText(toFormattedTimerString(cardTimer));
+
+    // check if card has expired
+    if (cardTimer <= 0) {
+      resetInterval();
+      setCardExpired(true);
     }
-
-    if (cardExpired) {
-      resetTimer();
-    }
-
-    const intervalId: number = window.setInterval(() => {
-      setCardTimer((previousState: number) => previousState - 1);
-    }, 1000);
-
-    setCardIntervalId(intervalId);
-  };
-
-  const handleOnClickStop = () => {
-    resetInterval();
-  };
-
-  const handleOnClickReset = () => {
-    resetInterval();
-    resetTimer();
-  };
-
-  const handleCardNameDoubleClick = () => {
-    setPreviousCardName(cardName);
-    setToggleNameChange(true);
-  };
-
-  const handleCardNameChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setCardName((e.target as HTMLInputElement).value);
-  };
-
-  const handleCardNameInputKeydown = (
-    e: React.KeyboardEvent<HTMLInputElement>,
-  ) => {
-    if (e.key === 'Enter' || e.key === 'Escape') {
-      setToggleNameChange(false);
-      e.preventDefault();
-      e.stopPropagation();
-
-      if (e.key === 'Escape') {
-        setCardName(previousCardName);
-      }
-    }
-  };
+  }, [cardTimer]);
 
   return (
     <div
@@ -114,7 +68,10 @@ export const PomodoroCard = (props: IProps) => {
         {!toggleNameChange ? (
           <p
             className="text-black text-3xl font-bold"
-            onDoubleClick={handleCardNameDoubleClick}
+            onDoubleClick={() => {
+              setPreviousCardName(cardName);
+              setToggleNameChange(true);
+            }}
           >
             {cardName}
           </p>
@@ -123,8 +80,20 @@ export const PomodoroCard = (props: IProps) => {
             type="text"
             className="rounded-lg"
             value={cardName}
-            onChange={handleCardNameChange}
-            onKeyDown={handleCardNameInputKeydown}
+            onChange={(e: React.FormEvent<HTMLInputElement>) => {
+              setCardName((e.target as HTMLInputElement).value);
+            }}
+            onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+              if (e.key === 'Enter' || e.key === 'Escape') {
+                setToggleNameChange(false);
+                e.preventDefault();
+                e.stopPropagation();
+
+                if (e.key === 'Escape') {
+                  setCardName(previousCardName);
+                }
+              }
+            }}
           />
         )}
       </div>
@@ -136,7 +105,21 @@ export const PomodoroCard = (props: IProps) => {
           className="bg-[#6d4a4a] hover:bg-[#614242] text-white rounded-lg
           pl-4 pr-4 pt-2 pb-2 border-black mr-1"
           type="button"
-          onClick={handleOnClickStart}
+          onClick={() => {
+            if (cardIntervalId) {
+              return;
+            }
+
+            if (cardExpired) {
+              resetTimer();
+            }
+
+            const intervalId: number = window.setInterval(() => {
+              setCardTimer((previousState: number) => previousState - 1);
+            }, 1000);
+
+            setCardIntervalId(intervalId);
+          }}
         >
           Start
         </button>
@@ -144,7 +127,9 @@ export const PomodoroCard = (props: IProps) => {
           className="bg-[#6d4a4a] hover:bg-[#614242] text-white rounded-lg
           pl-4 pr-4 pt-2 pb-2 border-black ml-1 mr-1"
           type="button"
-          onClick={handleOnClickStop}
+          onClick={() => {
+            resetInterval();
+          }}
         >
           Stop
         </button>
@@ -152,7 +137,10 @@ export const PomodoroCard = (props: IProps) => {
           className="bg-[#6d4a4a] hover:bg-[#614242] text-white rounded-lg
           pl-4 pr-4 pt-2 pb-2 border-black ml-1"
           type="button"
-          onClick={handleOnClickReset}
+          onClick={() => {
+            resetInterval();
+            resetTimer();
+          }}
         >
           Reset
         </button>
