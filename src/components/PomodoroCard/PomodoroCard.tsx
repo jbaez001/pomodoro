@@ -24,7 +24,7 @@ interface IProps {
 const defaultPomodoroStartTime: number = 60 * 25;
 
 export const PomodoroCard = (props: IProps) => {
-  const [previousPomodoroName, setPreviousPomodoroName] = useState<string>('');
+  const [previousCardName, setPreviousCardName] = useState<string>('');
   const [cardName, setCardName] = useState<string>(props.name);
   const [cardTimer, setCardTimer] = useState<number>(defaultPomodoroStartTime);
   const [cardText, setCardText] = useState<string>(
@@ -81,16 +81,16 @@ export const PomodoroCard = (props: IProps) => {
     resetTimer();
   };
 
-  const handleOnPomodoroNameDoubleClick = () => {
-    setPreviousPomodoroName(cardName);
+  const handleCardNameDoubleClick = () => {
+    setPreviousCardName(cardName);
     setToggleNameChange(true);
   };
 
-  const handleOnPomodoroNameChange = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleCardNameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setCardName((e.target as HTMLInputElement).value);
   };
 
-  const handleOnPomodoroKeyDown = (
+  const handleCardNameInputKeydown = (
     e: React.KeyboardEvent<HTMLInputElement>,
   ) => {
     if (e.key === 'Enter' || e.key === 'Escape') {
@@ -99,7 +99,7 @@ export const PomodoroCard = (props: IProps) => {
       e.stopPropagation();
 
       if (e.key === 'Escape') {
-        setCardName(previousPomodoroName);
+        setCardName(previousCardName);
       }
     }
   };
@@ -114,7 +114,7 @@ export const PomodoroCard = (props: IProps) => {
         {!toggleNameChange ? (
           <p
             className="text-black text-3xl font-bold"
-            onDoubleClick={handleOnPomodoroNameDoubleClick}
+            onDoubleClick={handleCardNameDoubleClick}
           >
             {cardName}
           </p>
@@ -123,8 +123,8 @@ export const PomodoroCard = (props: IProps) => {
             type="text"
             className="rounded-lg"
             value={cardName}
-            onChange={handleOnPomodoroNameChange}
-            onKeyDown={handleOnPomodoroKeyDown}
+            onChange={handleCardNameChange}
+            onKeyDown={handleCardNameInputKeydown}
           />
         )}
       </div>
