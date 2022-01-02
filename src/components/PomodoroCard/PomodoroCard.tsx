@@ -65,7 +65,7 @@ export const PomodoroCard = (props: IProps) => {
 
     const intervalId: number = window.setInterval(() => {
       setCardTimer((previousState: number) => previousState - 1);
-    }, 1);
+    }, 1000);
 
     setCardIntervalId(intervalId);
   };
