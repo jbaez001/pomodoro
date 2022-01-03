@@ -19,9 +19,7 @@ import { PomodoroCard } from './components/PomodoroCard';
 export const App = () => (
   <div className="flex justify-center h-screen bg-[#282c34]">
     <div className="m-auto">
-      <PomodoroCard name="Pomodoro #1" />
-      <PomodoroCard name="Pomodoro #2" />
-      <PomodoroCard name="Pomodoro #3" />
+      <PomodoroCard name="Pomodoro" />
     </div>
   </div>
 );

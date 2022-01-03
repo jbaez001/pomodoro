@@ -17,11 +17,10 @@ limitations under the License.
 import { useEffect, useState } from 'react';
 import { formatTimerString } from '../../utils/FormatTmerString';
 
+const defaultStartTime: number = 60 * 25;
 interface IProps {
   name: string;
 }
-
-const defaultStartTime: number = 60 * 25;
 
 export const PomodoroCard = (props: IProps) => {
   const [previousCardName, setPreviousCardName] = useState<string>('');
