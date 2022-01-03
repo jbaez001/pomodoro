@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/jbaez001/pomodoro/compare/v0.1.0...v0.1.1) (2022-01-03)
+
+
+### Features
+
+* card bg color now changes based on current card state ([95b7804](https://github.com/jbaez001/pomodoro/commit/95b78047033d9b8af3dd34bc39ee732c9fcb5729))
+
+
+### Bug Fixes
+
+* package name ([7b61c82](https://github.com/jbaez001/pomodoro/commit/7b61c82627e0f64c51744dffa0ed206e4f72ea79))
+* timer expiration not resetting ([494a6d2](https://github.com/jbaez001/pomodoro/commit/494a6d2e45a2bc842e9efaad6284540eb91a2d38))
+* timer speed ([66ff0b8](https://github.com/jbaez001/pomodoro/commit/66ff0b8b59ccf689a2ddd758329bc1080d602f5d))
+
 ## 0.1.0 (2022-01-02)
 
 
