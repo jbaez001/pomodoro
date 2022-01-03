@@ -18,6 +18,16 @@ import { useEffect, useState } from 'react';
 import { formatTimerString } from '../../utils/FormatTmerString';
 
 const defaultStartTime: number = 60 * 25;
+
+/**
+ * CardState represents the current state of the card
+ */
+enum CardState {
+  Neutral,
+  Started,
+  Stopped,
+  Expired,
+}
 interface IProps {
   name: string;
 }
@@ -25,24 +35,42 @@ interface IProps {
 export const PomodoroCard = (props: IProps) => {
   const [previousCardName, setPreviousCardName] = useState<string>('');
   const [cardName, setCardName] = useState<string>(props.name);
+  const [cardState, setCardState] = useState<CardState>(CardState.Neutral);
   const [cardTimer, setCardTimer] = useState<number>(defaultStartTime);
   const [cardText, setCardText] = useState<string>(
     formatTimerString(cardTimer),
   );
   const [cardIntervalId, setCardIntervalId] = useState<number>(0);
-  const [cardExpired, setCardExpired] = useState<boolean>(false);
   const [toggleNameChange, setToggleNameChange] = useState<boolean>(false);
 
   const resetTimer = () => {
     setCardTimer(defaultStartTime);
     setCardText(formatTimerString(defaultStartTime));
-    setCardExpired(false);
   };
 
   const resetInterval = () => {
     if (cardIntervalId) {
       window.clearInterval(cardIntervalId);
       setCardIntervalId(0);
+    }
+  };
+
+  const getBgColor = (): string => {
+    switch (cardState) {
+      case CardState.Neutral:
+        return "bg-white";
+
+      case CardState.Started:
+        return "bg-yellow-100";
+
+      case CardState.Stopped:
+        return "bg-red-300";
+
+      case CardState.Expired:
+        return "bg-green-100";
+
+      default:
+        return "bg-white";
     }
   };
 
@@ -53,14 +81,13 @@ export const PomodoroCard = (props: IProps) => {
     // check if card has expired
     if (cardTimer <= 0) {
       resetInterval();
-      setCardExpired(true);
+      setCardState(CardState.Expired);
     }
   }, [cardTimer]);
 
   return (
     <div
-      className={`max-w-sm mx-auto p-6 m-4
-    ${!cardExpired ? 'bg-white' : 'bg-green-100'} rounded-lg shadow-xl
+      className={`max-w-sm mx-auto p-6 m-4 ${getBgColor()} rounded-lg shadow-xl
     text-center border-4 border-solid`}
     >
       <div className="flex-shrink-0 pb-4 max-w-[290px]">
@@ -109,7 +136,7 @@ export const PomodoroCard = (props: IProps) => {
               return;
             }
 
-            if (cardExpired) {
+            if (cardState === CardState.Expired) {
               resetTimer();
             }
 
@@ -118,6 +145,7 @@ export const PomodoroCard = (props: IProps) => {
             }, 1000);
 
             setCardIntervalId(intervalId);
+            setCardState(CardState.Started);
           }}
         >
           Start
@@ -128,6 +156,7 @@ export const PomodoroCard = (props: IProps) => {
           type="button"
           onClick={() => {
             resetInterval();
+            setCardState(CardState.Stopped);
           }}
         >
           Stop
@@ -139,6 +168,7 @@ export const PomodoroCard = (props: IProps) => {
           onClick={() => {
             resetInterval();
             resetTimer();
+            setCardState(CardState.Neutral);
           }}
         >
           Reset
