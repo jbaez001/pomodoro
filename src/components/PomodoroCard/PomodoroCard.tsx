@@ -159,6 +159,9 @@ export const PomodoroCard = (props: IProps) => {
           pl-4 pr-4 pt-2 pb-2 border-black ml-1 mr-1"
           type="button"
           onClick={() => {
+            if (cardIs(CardState.Neutral)) {
+              return;
+            }
             resetInterval();
             setCardState(CardState.Stopped);
           }}
