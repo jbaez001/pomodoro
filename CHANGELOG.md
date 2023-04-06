@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/jbaez001/pomodoro/compare/v0.1.1...v0.1.2) (2023-04-06)
+
+
+### Bug Fixes
+
+* bug with card not starting if previously expired ([c1eebb5](https://github.com/jbaez001/pomodoro/commit/c1eebb59e5f24157e7ff66747807a998c293c075))
+* expired cards will properly reset timer ([af2f512](https://github.com/jbaez001/pomodoro/commit/af2f512c9841b843f957fd812f63d482ffd2fd6a))
+* if pomodoro card is in a neutral state, then the 'stop' button will not change the card's state ([20b1002](https://github.com/jbaez001/pomodoro/commit/20b1002ca100690fc175ea8e2416d8d89e0d81ec))
+
 ### [0.1.1](https://github.com/jbaez001/pomodoro/compare/v0.1.0...v0.1.1) (2022-01-03)
 
 
