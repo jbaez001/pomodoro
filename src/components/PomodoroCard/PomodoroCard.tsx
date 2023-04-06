@@ -28,6 +28,7 @@ enum CardState {
   Stopped,
   Expired,
 }
+
 interface IProps {
   name: string;
 }
@@ -42,6 +43,9 @@ export const PomodoroCard = (props: IProps) => {
   );
   const [cardIntervalId, setCardIntervalId] = useState<number>(0);
   const [toggleNameChange, setToggleNameChange] = useState<boolean>(false);
+
+  const cardIs = (currentState: CardState) =>
+    (cardState === currentState);
 
   const resetTimer = () => {
     setCardTimer(defaultStartTime);
@@ -136,7 +140,7 @@ export const PomodoroCard = (props: IProps) => {
               return;
             }
 
-            if (cardState === CardState.Expired) {
+            if (cardIs(CardState.Expired) || cardIs(CardState.Stopped)) {
               resetTimer();
             }
 
@@ -155,6 +159,9 @@ export const PomodoroCard = (props: IProps) => {
           pl-4 pr-4 pt-2 pb-2 border-black ml-1 mr-1"
           type="button"
           onClick={() => {
+            if (cardIs(CardState.Neutral)) {
+              return;
+            }
             resetInterval();
             setCardState(CardState.Stopped);
           }}
