@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/jbaez001/pomodoro/compare/v0.1.2...v0.1.3) (2023-05-04)
+
+
+### Bug Fixes
+
+* timer accuracy ([68b15df](https://github.com/jbaez001/pomodoro/commit/68b15dfb795d0e18fcf6207529c189ee43ad0c51))
+
 ### [0.1.2](https://github.com/jbaez001/pomodoro/compare/v0.1.1...v0.1.2) (2023-04-06)
 
 
