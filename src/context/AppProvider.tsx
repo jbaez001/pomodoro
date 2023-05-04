@@ -16,7 +16,7 @@ limitations under the License.
 
 import React, { ReactElement, useContext } from 'react';
 
-export interface IAppContext {
+export type IAppContext = {
   pageTitle: string;
 }
 
@@ -26,8 +26,8 @@ const defaultApplicationContext: IAppContext = {
 
 export const AppContext = React.createContext(defaultApplicationContext);
 
-interface IProps {
-  // tslint:disable-next-line:no-any
+type IProps = {
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   children: ReactElement<any, any>;
 }
 

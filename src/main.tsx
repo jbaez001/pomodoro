@@ -14,9 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+import './assets/index.css';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './assets/index.css';
+
 import { App } from './App';
 import { AppProvider } from './context';
 

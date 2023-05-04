@@ -15,6 +15,7 @@ limitations under the License.
 */
 
 import React, { useEffect, useState } from 'react';
+
 import { formatTimerString } from '../../utils/FormatTmerString';
 
 const defaultStartTime: number = 60 * 25;
@@ -29,7 +30,7 @@ enum CardState {
   Expired,
 }
 
-interface IProps {
+type IProps = {
   name: string;
 }
 
