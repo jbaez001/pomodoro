@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { formatTimerString } from '../../utils/FormatTmerString';
 
 const defaultStartTime: number = 60 * 25;
@@ -38,6 +38,7 @@ export const PomodoroCard = (props: IProps) => {
   const [cardName, setCardName] = useState<string>(props.name);
   const [cardState, setCardState] = useState<CardState>(CardState.Neutral);
   const [cardTimer, setCardTimer] = useState<number>(defaultStartTime);
+  const [cardLastUpdate, setCardLastUpdate] = useState<number>(0);
   const [cardText, setCardText] = useState<string>(
     formatTimerString(cardTimer),
   );
@@ -80,6 +81,22 @@ export const PomodoroCard = (props: IProps) => {
 
   // hook for cardTimer
   useEffect(() => {
+
+    if (cardIs(CardState.Neutral)) {
+      return;
+    }
+    // get current timestamp and calculate seconds elapsed since then
+    const currentTimestamp = Date.now();
+    const secondsElapsed = Math.floor((currentTimestamp - cardLastUpdate) / 1000);
+
+    // if more than one second has elapsed, then ensure that we update
+    // the card timer value accordingly
+    if (secondsElapsed > 1) {
+      const newTimerValue = cardTimer - secondsElapsed;
+      setCardTimer(newTimerValue > 0 ? newTimerValue : 0);
+    }
+
+    setCardLastUpdate(currentTimestamp);
     setCardText(formatTimerString(cardTimer));
 
     // check if card has expired
@@ -143,6 +160,8 @@ export const PomodoroCard = (props: IProps) => {
             if (cardIs(CardState.Expired) || cardIs(CardState.Stopped)) {
               resetTimer();
             }
+
+            setCardLastUpdate(Date.now());
 
             const intervalId: number = window.setInterval(() => {
               setCardTimer((previousState: number) => previousState - 1);
