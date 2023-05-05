@@ -137,7 +137,8 @@ export const PomodoroCard = (props: IProps) => {
                 e.preventDefault();
                 e.stopPropagation();
 
-                if (e.key === 'Escape') {
+                if ((e.key === 'Escape') || (!cardName) ||
+                  (cardName.match(/^ *$/) !== null)) {
                   setCardName(previousCardName);
                 }
               }
