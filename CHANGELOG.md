@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.5](https://github.com/jbaez001/pomodoro/compare/v0.1.4...v0.1.5) (2023-05-05)
+
+
+### Bug Fixes
+
+* pomodoro card names cannot be empty or contain only white spaces ([87a167e](https://github.com/jbaez001/pomodoro/commit/87a167ee71fdea5214adb42479c82788f06cb751))
+
 ### [0.1.4](https://github.com/jbaez001/pomodoro/compare/v0.1.3...v0.1.4) (2023-05-04)
 
 ### [0.1.3](https://github.com/jbaez001/pomodoro/compare/v0.1.2...v0.1.3) (2023-05-04)
