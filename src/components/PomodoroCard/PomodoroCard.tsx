@@ -55,7 +55,7 @@ export const PomodoroCard = (props: IProps) => {
   };
 
   const resetInterval = () => {
-    if (cardIntervalId) {
+    if (cardIntervalId !== 0) {
       window.clearInterval(cardIntervalId);
       setCardIntervalId(0);
     }
@@ -63,20 +63,20 @@ export const PomodoroCard = (props: IProps) => {
 
   const getBgColor = (): string => {
     switch (cardState) {
-      case CardState.Neutral:
-        return "bg-white";
+    case CardState.Neutral:
+      return "bg-white";
 
-      case CardState.Started:
-        return "bg-yellow-100";
+    case CardState.Started:
+      return "bg-yellow-100";
 
-      case CardState.Stopped:
-        return "bg-red-300";
+    case CardState.Stopped:
+      return "bg-red-300";
 
-      case CardState.Expired:
-        return "bg-green-100";
+    case CardState.Expired:
+      return "bg-green-100";
 
-      default:
-        return "bg-white";
+    default:
+      return "bg-white";
     }
   };
 
@@ -99,7 +99,7 @@ export const PomodoroCard = (props: IProps) => {
 
     setCardLastUpdate(currentTimestamp);
     setCardText(formatTimerString(cardTimer));
-
+    
     // check if card has expired
     if (cardTimer <= 0) {
       resetInterval();
@@ -137,7 +137,7 @@ export const PomodoroCard = (props: IProps) => {
                 e.preventDefault();
                 e.stopPropagation();
 
-                if ((e.key === 'Escape') || (!cardName) ||
+                if ((e.key === 'Escape') || (cardName.length === 0) ||
                   (cardName.match(/^ *$/) !== null)) {
                   setCardName(previousCardName);
                 }
@@ -155,7 +155,7 @@ export const PomodoroCard = (props: IProps) => {
           pl-4 pr-4 pt-2 pb-2 border-black mr-1"
           type="button"
           onClick={() => {
-            if (cardIntervalId) {
+            if (cardIntervalId !== 0) {
               return;
             }
 

@@ -15,6 +15,6 @@ limitations under the License.
 */
 
 export {
-    AppContext,
-    AppProvider,
-    type IAppContext} from './AppProvider';
+  AppContext,
+  AppProvider,
+  type IAppContext} from './AppProvider';
