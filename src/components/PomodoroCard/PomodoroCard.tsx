@@ -18,6 +18,7 @@ import React, { useEffect, useState } from 'react';
 
 import { formatTimerString } from '../../utils/FormatTmerString';
 
+// default start time of 25 minutes
 const defaultStartTime: number = 60 * 25;
 
 /**
@@ -33,6 +34,25 @@ enum CardState {
 type IProps = {
   name: string;
 }
+
+const getBgColor = (cardState: number): string => {
+  switch (cardState) {
+  case CardState.Neutral:
+    return "bg-white";
+
+  case CardState.Started:
+    return "bg-yellow-100";
+
+  case CardState.Stopped:
+    return "bg-red-300";
+
+  case CardState.Expired:
+    return "bg-green-100";
+
+  default:
+    return "bg-white";
+  }
+};
 
 export const PomodoroCard = (props: IProps) => {
   const [previousCardName, setPreviousCardName] = useState<string>('');
@@ -61,24 +81,61 @@ export const PomodoroCard = (props: IProps) => {
     }
   };
 
-  const getBgColor = (): string => {
-    switch (cardState) {
-    case CardState.Neutral:
-      return "bg-white";
-
-    case CardState.Started:
-      return "bg-yellow-100";
-
-    case CardState.Stopped:
-      return "bg-red-300";
-
-    case CardState.Expired:
-      return "bg-green-100";
-
-    default:
-      return "bg-white";
+  const handleStart = () => {
+    if (cardIntervalId !== 0) {
+      return;
     }
+
+    if (cardIs(CardState.Expired) || cardIs(CardState.Stopped)) {
+      resetTimer();
+    }
+
+    setCardLastUpdate(Date.now());
+
+    const intervalId: number = window.setInterval(() => {
+      setCardTimer((previousState: number) => previousState - 1);
+    }, 1000);
+
+    setCardIntervalId(intervalId);
+    setCardState(CardState.Started);
+
   };
+  
+  const handleStop = () => {
+    if (cardIs(CardState.Neutral)) {
+      return;
+    }
+    resetInterval();
+    setCardState(CardState.Stopped);
+  };
+
+  const handleReset = () => {
+    resetInterval();
+    resetTimer();
+    setCardState(CardState.Neutral);
+  };
+
+  const handleNameDoubleClick = () => {
+    setPreviousCardName(cardName);
+    setToggleNameChange(true);
+  };
+
+  const handleInputNameChange = (e: React.FormEvent<HTMLInputElement>) => 
+    setCardName((e.target as HTMLInputElement).value);
+
+  const handleInputNameChangeOnKeyDown = 
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter' || e.key === 'Escape') {
+        setToggleNameChange(false);
+        e.preventDefault();
+        e.stopPropagation();
+
+        if ((e.key === 'Escape') || (cardName.length === 0) ||
+        (cardName.match(/^ *$/) !== null)) {
+          setCardName(previousCardName);
+        }
+      }
+    };
 
   // hook for cardTimer
   useEffect(() => {
@@ -88,7 +145,9 @@ export const PomodoroCard = (props: IProps) => {
     }
     // get current timestamp and calculate seconds elapsed since then
     const currentTimestamp = Date.now();
-    const secondsElapsed = Math.floor((currentTimestamp - cardLastUpdate) / 1000);
+    const secondsElapsed = Math.floor(
+      (currentTimestamp - cardLastUpdate) / 1000
+    );
 
     // if more than one second has elapsed, then ensure that we update
     // the card timer value accordingly
@@ -108,100 +167,59 @@ export const PomodoroCard = (props: IProps) => {
   }, [cardTimer]);
 
   return (
-    <div
-      className={`max-w-sm mx-auto p-6 m-4 ${getBgColor()} rounded-lg shadow-xl
-    text-center border-4 border-solid`}
-    >
-      <div className="flex-shrink-0 pb-4 max-w-[290px]">
-        {!toggleNameChange ? (
-          <p
-            className="text-black text-3xl font-bold"
-            onDoubleClick={() => {
-              setPreviousCardName(cardName);
-              setToggleNameChange(true);
-            }}
+    <>
+      <div
+        className={`max-w-sm mx-auto p-6 m-4 ${getBgColor(cardState)}
+                    rounded-lg shadow-xl text-center border-4 border-solid`}
+      >
+        <div className="flex-shrink-0 pb-4 max-w-[290px]">
+          {!toggleNameChange ? (
+            <p
+              className="text-black text-3xl font-bold"
+              onDoubleClick={handleNameDoubleClick}
+            >
+              {cardName}
+            </p>
+          ) : (
+            <input
+              type="text"
+              className="rounded-lg"
+              value={cardName}
+              onChange={handleInputNameChange}
+              onKeyDown={handleInputNameChangeOnKeyDown}
+            />
+          )}
+        </div>
+        <div className="mb-4">
+          <p className="text-4xl font-bold">{cardText}</p>
+        </div>
+        <div className="pt-4 text-1xl">
+          <button
+            className="bg-[#6d4a4a] hover:bg-[#614242] text-white
+                        rounded-lg pl-4 pr-4 pt-2 pb-2 border-black mr-1"
+            type="button"
+            onClick={handleStart}
           >
-            {cardName}
-          </p>
-        ) : (
-          <input
-            type="text"
-            className="rounded-lg"
-            value={cardName}
-            onChange={(e: React.FormEvent<HTMLInputElement>) => {
-              setCardName((e.target as HTMLInputElement).value);
-            }}
-            onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
-              if (e.key === 'Enter' || e.key === 'Escape') {
-                setToggleNameChange(false);
-                e.preventDefault();
-                e.stopPropagation();
-
-                if ((e.key === 'Escape') || (cardName.length === 0) ||
-                  (cardName.match(/^ *$/) !== null)) {
-                  setCardName(previousCardName);
-                }
-              }
-            }}
-          />
-        )}
+            Start
+          </button>
+          <button
+            className="bg-[#6d4a4a] hover:bg-[#614242] text-white
+                        rounded-lg pl-4 pr-4 pt-2 pb-2 border-black ml-1 mr-1"
+            type="button"
+            onClick={handleStop}
+          >
+            Stop
+          </button>
+          <button
+            className="bg-[#6d4a4a] hover:bg-[#614242] text-white
+                        rounded-lg pl-4 pr-4 pt-2 pb-2 border-black ml-1"
+            type="button"
+            onClick={handleReset}
+          >
+            Reset
+          </button>
+        </div>
       </div>
-      <div className="mb-4">
-        <p className="text-4xl font-bold">{cardText}</p>
-      </div>
-      <div className="pt-4 text-1xl">
-        <button
-          className="bg-[#6d4a4a] hover:bg-[#614242] text-white rounded-lg
-          pl-4 pr-4 pt-2 pb-2 border-black mr-1"
-          type="button"
-          onClick={() => {
-            if (cardIntervalId !== 0) {
-              return;
-            }
-
-            if (cardIs(CardState.Expired) || cardIs(CardState.Stopped)) {
-              resetTimer();
-            }
-
-            setCardLastUpdate(Date.now());
-
-            const intervalId: number = window.setInterval(() => {
-              setCardTimer((previousState: number) => previousState - 1);
-            }, 1000);
-
-            setCardIntervalId(intervalId);
-            setCardState(CardState.Started);
-          }}
-        >
-          Start
-        </button>
-        <button
-          className="bg-[#6d4a4a] hover:bg-[#614242] text-white rounded-lg
-          pl-4 pr-4 pt-2 pb-2 border-black ml-1 mr-1"
-          type="button"
-          onClick={() => {
-            if (cardIs(CardState.Neutral)) {
-              return;
-            }
-            resetInterval();
-            setCardState(CardState.Stopped);
-          }}
-        >
-          Stop
-        </button>
-        <button
-          className="bg-[#6d4a4a] hover:bg-[#614242] text-white rounded-lg
-          pl-4 pr-4 pt-2 pb-2 border-black ml-1"
-          type="button"
-          onClick={() => {
-            resetInterval();
-            resetTimer();
-            setCardState(CardState.Neutral);
-          }}
-        >
-          Reset
-        </button>
-      </div>
-    </div>
+    </>
   );
 };

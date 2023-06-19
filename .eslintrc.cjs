@@ -49,6 +49,12 @@ module.exports = {
       "error",
       2
     ],
+    "max-len": [
+      1,
+      {
+        "code": 80 
+      }
+    ]
   },
   "ignorePatterns": [
     "*.config.js",
