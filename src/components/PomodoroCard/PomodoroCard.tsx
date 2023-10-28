@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 import { formatTimerString } from '../../utils/FormatTmerString';
@@ -31,8 +32,24 @@ enum CardState {
   Expired,
 }
 
-type IProps = {
-  name: string;
+type IPomodoro = {
+  _id: string;
+  title: string;
+  completed?: boolean;
+  dateCreated?: Date;
+  dateStarted?: Date;
+  dateStopped?: Date;
+  dateCompleted?: Date;
+}
+
+type IPomodoroUpdateRequest = {
+  _id: string;
+  title?: string;
+  completed?: boolean;
+  dateCreated?: Date;
+  dateStarted?: Date;
+  dateStopped?: Date;
+  dateCompleted?: Date;
 }
 
 const getBgColor = (cardState: number): string => {
@@ -54,9 +71,9 @@ const getBgColor = (cardState: number): string => {
   }
 };
 
-export const PomodoroCard = (props: IProps) => {
+export const PomodoroCard = (props: IPomodoro) => {
   const [previousCardName, setPreviousCardName] = useState<string>('');
-  const [cardName, setCardName] = useState<string>(props.name);
+  const [cardName, setCardName] = useState<string>(props.title);
   const [cardState, setCardState] = useState<CardState>(CardState.Neutral);
   const [cardTimer, setCardTimer] = useState<number>(defaultStartTime);
   const [cardLastUpdate, setCardLastUpdate] = useState<number>(0);
@@ -120,8 +137,11 @@ export const PomodoroCard = (props: IProps) => {
     setToggleNameChange(true);
   };
 
-  const handleInputNameChange = (e: React.FormEvent<HTMLInputElement>) => 
-    setCardName((e.target as HTMLInputElement).value);
+  const handleInputNameChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const newCardName: string = (e.target as HTMLInputElement).value;
+    setCardName(newCardName);
+
+  };
 
   const handleInputNameChangeOnKeyDown = 
     (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -133,6 +153,16 @@ export const PomodoroCard = (props: IProps) => {
         if ((e.key === 'Escape') || (cardName.length === 0) ||
         (cardName.match(/^ *$/) !== null)) {
           setCardName(previousCardName);
+        } else {
+          const updateRequest: IPomodoro = {
+            _id: props._id,
+            title: cardName
+          }
+
+          axios.put<IPomodoro>(`http://localhost:3000/pomodoros/${props._id}`, 
+            updateRequest).then((response) => {
+            props = response.data;
+          }).catch(() => {setCardName(previousCardName)});
         }
       }
     };
@@ -163,6 +193,16 @@ export const PomodoroCard = (props: IProps) => {
     if (cardTimer <= 0) {
       resetInterval();
       setCardState(CardState.Expired);
+
+      const updateRequest: IPomodoroUpdateRequest = {
+        _id: props._id,
+        completed: true
+      }
+
+      axios.put<IPomodoro>(`http://localhost:3000/pomodoros/${props._id}`,
+        updateRequest).then((response) => {
+        props = response.data;
+      }).catch();
     }
   }, [cardTimer]);
 

@@ -38,7 +38,7 @@ export const PomodoroList = () => {
   const [pomodoros, setPomodoros] = useState<IPomodoro[]>(defaultPomodoros);
 
   useEffect(() => { 
-    // get pomodoros
+    // fetch pomodoros
     axios.get<IPomodoro[]>('http://localhost:3000/pomodoros', {
       headers: {
         'Content-Type': 'application/json'
@@ -62,7 +62,12 @@ export const PomodoroList = () => {
         <h2>Error {errorMsg}</h2>
       )}
       {pomodoros.map((pomodoro: IPomodoro) => (
-        <PomodoroCard key={pomodoro._id} name={pomodoro.title}/>
+        <PomodoroCard
+          key={pomodoro._id}
+          _id={pomodoro._id} 
+          title={pomodoro.title}
+          completed={pomodoro.completed}
+          dateCreated={pomodoro.dateCreated}/>
       ))}
     </>
   )
