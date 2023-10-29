@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/jbaez001/pomodoro/compare/v0.1.5...v0.2.0) (2023-10-29)
+
+
+### Features
+
+* added a default pomodoro ([e3903ee](https://github.com/jbaez001/pomodoro/commit/e3903ee64d3f90a4c6d22564d22d59262df9af48))
+* new component to add pomodoros on the fly ([f9784bc](https://github.com/jbaez001/pomodoro/commit/f9784bc14d6199ef2aebfe6981b27e82c9dbf7c1))
+* pomodoro controller ([2cc61b1](https://github.com/jbaez001/pomodoro/commit/2cc61b18453df351e7a57c22278e7481c03c6fd0))
+* pomodoro titles can now be updated ([8cb3e2d](https://github.com/jbaez001/pomodoro/commit/8cb3e2dcf83bbb20c0982b55af5ebd5b1be0c6f7))
+* pomodoros are retrieved from backend api ([8b74226](https://github.com/jbaez001/pomodoro/commit/8b74226f3773246a6cccd9027f2c8bb17351372a))
+* when pressing escape in pomodoro creation bar, it resets it ([f0bac0e](https://github.com/jbaez001/pomodoro/commit/f0bac0e4213cc888177ce3d5eef145ed1534dbf5))
+
+
+### Bug Fixes
+
+* no longer able to create blank pomodoros ([f0a1949](https://github.com/jbaez001/pomodoro/commit/f0a1949d8bb970ddd5b03764a2c37e25136d2513))
+* resetting a pomodoro card actually resets it ([7eb794e](https://github.com/jbaez001/pomodoro/commit/7eb794e93b55099318f27c490dbfe18647926e3d))
+* stopping and then starting a card no longer resets timer ([2199268](https://github.com/jbaez001/pomodoro/commit/21992683d68771fafdc9ea27f2596a109c09b469))
+
 ### [0.1.5](https://github.com/jbaez001/pomodoro/compare/v0.1.4...v0.1.5) (2023-05-05)
 
 
