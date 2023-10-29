@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 import { IPomodoro } from '../../interfaces/pomodoros';
-import { PomodoroCard } from '../PomodoroCard';
+import { PomodoroCard } from './PomodoroCard';
 import { usePomodoro } from './usePomodoro';
 
 export const Pomodoro = (props: IPomodoro) => {
