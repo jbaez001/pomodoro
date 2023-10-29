@@ -35,16 +35,6 @@ enum CardState {
 
 type IPomodoro = {
   _id: string;
-  title: string;
-  completed?: boolean;
-  dateCreated?: Date;
-  dateStarted?: Date;
-  dateStopped?: Date;
-  dateCompleted?: Date;
-}
-
-type IPomodoroUpdateRequest = {
-  _id: string;
   title?: string;
   completed?: boolean;
   dateCreated?: Date;
@@ -74,7 +64,8 @@ const getBgColor = (cardState: CardState): string => {
 
 export const Pomodoro = (props: IPomodoro) => {
   const [previousCardName, setPreviousCardName] = useState<string>('');
-  const [cardName, setCardName] = useState<string>(props.title);
+  const [cardName, setCardName] = useState<string>(
+    props.title !==undefined ? props.title : '');
   const [cardState, setCardState] = useState<CardState>(CardState.Neutral);
   const [cardTimer, setCardTimer] = useState<number>(defaultStartTime);
   const [cardLastUpdate, setCardLastUpdate] = useState<number>(0);
@@ -195,7 +186,7 @@ export const Pomodoro = (props: IPomodoro) => {
       resetInterval();
       setCardState(CardState.Expired);
 
-      const updateRequest: IPomodoroUpdateRequest = {
+      const updateRequest: IPomodoro = {
         _id: props._id,
         completed: true
       }
