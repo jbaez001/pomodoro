@@ -99,7 +99,7 @@ export const Pomodoro = (props: IPomodoro) => {
     }
   };
 
-  const handleStart = () => {
+  const onClickStart = () => {
     if (cardIntervalId !== 0) {
       return;
     }
@@ -119,7 +119,7 @@ export const Pomodoro = (props: IPomodoro) => {
 
   };
   
-  const handleStop = () => {
+  const onClickStop = () => {
     if (cardIs(CardState.Neutral)) {
       return;
     }
@@ -127,25 +127,25 @@ export const Pomodoro = (props: IPomodoro) => {
     setCardState(CardState.Stopped);
   };
 
-  const handleReset = () => {
+  const onClickReset = () => {
     resetInterval();
     resetTimer();
     setCardState(CardState.Neutral);
   };
 
-  const handleNameDoubleClick = () => {
+  const onCardNameDoubleClick = () => {
     setPreviousCardName(cardName);
     setToggleNameChange(true);
   };
 
   // eslint-disable-next-line max-len
-  const handleInputNameChange: ChangeEventHandler<HTMLInputElement> = (e: React.FormEvent<HTMLInputElement>) => {
+  const onCardNameChange: ChangeEventHandler<HTMLInputElement> = (e: React.FormEvent<HTMLInputElement>) => {
     const newCardName: string = (e.target as HTMLInputElement).value;
     setCardName(newCardName);
 
   };
 
-  const handleInputNameChangeOnKeyDown = 
+  const onCardNameChangeKeyDown = 
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter' || e.key === 'Escape') {
         setToggleNameChange(false);
@@ -215,12 +215,12 @@ export const Pomodoro = (props: IPomodoro) => {
         cardColor={getBgColor(cardState)}
         cardText={cardText}
         cardNameIsChanging={toggleNameChange}
-        onClickStart={handleStart}
-        onClickStop={handleStop}
-        onClickReset={handleReset}
-        onCardNameDoubleClick={handleNameDoubleClick}
-        onCardNameChange={handleInputNameChange}
-        onCardNameChangeKeyDown={handleInputNameChangeOnKeyDown}
+        onClickStart={onClickStart}
+        onClickStop={onClickStop}
+        onClickReset={onClickReset}
+        onCardNameDoubleClick={onCardNameDoubleClick}
+        onCardNameChange={onCardNameChange}
+        onCardNameChangeKeyDown={onCardNameChangeKeyDown}
       />
     </>
   );
