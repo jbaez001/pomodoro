@@ -41,7 +41,7 @@ const usePomodoroCreator = () => {
 
       const newPomodoro: IPomodoro = {
         _id: v4(),
-        title: (e.target as HTMLInputElement).value
+        title: title
       };
       (e.target as HTMLInputElement).value = '';
       addPomodoro(newPomodoro);
