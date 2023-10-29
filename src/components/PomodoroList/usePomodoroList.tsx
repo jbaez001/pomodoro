@@ -30,11 +30,8 @@ export const usePomodoroList = () => {
     pomodoros,
     setPomodoros
   } = useContext<IPomodoroContext>(PomodoroContext);
-
-  // const pomodoroContext = useContext<IPomodoroContext>(PomodoroContext);
   const [loading, setLoading] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string>('');
-  // const [pomodoros, setPomodoros] = useState<IPomodoro[]>(defaultPomodoros);
 
   useEffect(() => {
     (async () => {

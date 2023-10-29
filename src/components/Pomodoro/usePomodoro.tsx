@@ -15,14 +15,22 @@ limitations under the License.
 */
 
 import axios from 'axios';
-import React, { ChangeEventHandler,useEffect, useState } from 'react';
+import React, { 
+  ChangeEventHandler,
+  useContext,
+  useEffect, 
+  useState 
+} from 'react';
 
+import { 
+  IPomodoroContext, 
+  PomodoroContext 
+} from '../../context/PomodoroProvider';
 import { IPomodoro } from '../../interfaces/pomodoros';
 import { formatTimerString } from '../../utils/FormatTmerString';
 
 // default start time of 25 minutes
 const defaultStartTime: number = 60 * 25;
-
 
 export enum CardState {
   Neutral,
@@ -51,6 +59,9 @@ const getBgColor = (cardState: CardState): string => {
 };
 
 export const usePomodoro = (props: IPomodoro) => {
+  const {
+    deletePomodoro,
+  } = useContext<IPomodoroContext>(PomodoroContext);
   const [previousCardName, setPreviousCardName] = useState<string>('');
   const [cardName, setCardName] = useState<string>(
     props.title !==undefined ? props.title : '');
@@ -109,6 +120,32 @@ export const usePomodoro = (props: IPomodoro) => {
     resetInterval();
     resetTimer();
     setCardState(CardState.Neutral);
+  };
+
+  const onClickComplete = () => { 
+    // mark the card as expired & reset it
+    setCardState(CardState.Expired);
+    resetInterval();
+    resetTimer();
+
+    const request: IPomodoro = {
+      _id: props._id,
+      completed: true
+    }
+
+    // submit API request
+    axios.put<IPomodoro>(
+      `http://localhost:3000/pomodoros/${props._id}`, request
+    ).then((response) => {
+      props = response.data as IPomodoro;
+    }).catch(() => { 
+      setCardState(CardState.Neutral);
+      props.completed = false;
+    });
+  };
+
+  const onClickClose = () => { 
+    deletePomodoro(props);
   };
 
   const onCardNameDoubleClick = () => {
@@ -193,6 +230,8 @@ export const usePomodoro = (props: IPomodoro) => {
     onClickStart,
     onClickStop,
     onClickReset,
+    onClickComplete,
+    onClickClose,
     onCardNameDoubleClick,
     onCardNameChange,
     onCardNameChangeKeyDown

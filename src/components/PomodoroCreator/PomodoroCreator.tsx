@@ -30,7 +30,6 @@ const usePomodoroCreator = () => {
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-
       const newPomodoro: IPomodoroCreate = {
         title: (e.target as HTMLInputElement).value,
         completed: false,
@@ -45,12 +44,12 @@ const usePomodoroCreator = () => {
         // eslint-disable-next-line no-console
         console.log('response:', response);
         addPomodoro(response.data as IPomodoro);
-      }
-      ).catch((error) => {
+
+        (e.target as HTMLInputElement).value = 'Create New Pomodoro';
+      }).catch((error) => {
         // eslint-disable-next-line no-console
         console.log('error:', error);
-      }
-      );
+      });
     }
   }
 

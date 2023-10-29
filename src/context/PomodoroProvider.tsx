@@ -21,12 +21,14 @@ import { IPomodoro } from "../interfaces/pomodoros"
 export type IPomodoroContext = {
   pomodoros: IPomodoro[];
   addPomodoro: (pomodoro: IPomodoro) => void;
+  deletePomodoro: (pomodoro: IPomodoro) => void;
   setPomodoros: React.Dispatch<React.SetStateAction<IPomodoro[]>>;
 }
 
 const defaultContext: IPomodoroContext = {
   pomodoros: [],
   addPomodoro: () => { return },
+  deletePomodoro: () => { return },
   setPomodoros: () => { return },
 }
 
@@ -45,12 +47,17 @@ export const PomodoroProvider = ({ children }: IProps) => {
     setPomodoros([...pomodoros, pomodoro])
   }
 
+  const deletePomodoro = (pomodoro: IPomodoro) => {
+    setPomodoros(pomodoros.filter(item => item._id !== pomodoro._id));
+  }
+
   return (
     <PomodoroContext.Provider
       value={{
         pomodoros: pomodoros,
         addPomodoro: addPomodoro,
-        setPomodoros: setPomodoros
+        setPomodoros: setPomodoros,
+        deletePomodoro: deletePomodoro
       }}
     >
       {children}

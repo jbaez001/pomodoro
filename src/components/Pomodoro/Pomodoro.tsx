@@ -27,6 +27,8 @@ export const Pomodoro = (props: IPomodoro) => {
     onClickStart,
     onClickStop,
     onClickReset,
+    onClickComplete,
+    onClickClose,
     onCardNameDoubleClick,
     onCardNameChange,
     onCardNameChangeKeyDown
@@ -42,6 +44,8 @@ export const Pomodoro = (props: IPomodoro) => {
         onClickStart={onClickStart}
         onClickStop={onClickStop}
         onClickReset={onClickReset}
+        onClickComplete={onClickComplete}
+        onClickClose={onClickClose}
         onCardNameDoubleClick={onCardNameDoubleClick}
         onCardNameChange={onCardNameChange}
         onCardNameChangeKeyDown={onCardNameChangeKeyDown}

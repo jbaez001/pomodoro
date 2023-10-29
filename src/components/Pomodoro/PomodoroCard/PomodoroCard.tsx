@@ -28,6 +28,8 @@ type IPomodoroCardProps = {
   onClickStart?: MouseEventHandler<HTMLElement>;
   onClickStop?: MouseEventHandler<HTMLElement>;
   onClickReset?: MouseEventHandler<HTMLElement>;
+  onClickComplete?: MouseEventHandler<HTMLElement>;
+  onClickClose?: MouseEventHandler<HTMLElement>;
   onCardNameDoubleClick?: MouseEventHandler<HTMLElement>;
   onCardNameChange?: ChangeEventHandler<HTMLElement>;
   onCardNameChangeKeyDown?: KeyboardEventHandler<HTMLElement>;
@@ -41,6 +43,8 @@ export const PomodoroCard = ({
   onClickStart,
   onClickStop,
   onClickReset,
+  onClickComplete,
+  onClickClose,
   onCardNameDoubleClick,
   onCardNameChange,
   onCardNameChangeKeyDown
@@ -73,32 +77,49 @@ export const PomodoroCard = ({
         <div className="mb-4">
           <p className="text-4xl font-bold">{cardText}</p>
         </div>
-        <div className="pt-4 text-1xl">
+        <span
+          className="inline-flex -space-x-px overflow-hidden 
+                    rounded-md border bg-[#6d4a4a] text-white shadow-sm"
+        >
           <button
-            className="bg-[#6d4a4a] hover:bg-[#614242] text-white
-                        rounded-lg pl-4 pr-4 pt-2 pb-2 border-black mr-1"
-            type="button"
+            className="inline-block px-4 py-2 text-sm font-medium 
+                      hover:bg-[#614242] focus:relative"
             onClick={onClickStart}
           >
             Start
           </button>
+
           <button
-            className="bg-[#6d4a4a] hover:bg-[#614242] text-white
-                        rounded-lg pl-4 pr-4 pt-2 pb-2 border-black ml-1 mr-1"
-            type="button"
+            className="inline-block px-4 py-2 text-sm font-medium 
+                      hover:bg-[#614242] focus:relative"
             onClick={onClickStop}
           >
             Stop
           </button>
+
           <button
-            className="bg-[#6d4a4a] hover:bg-[#614242] text-white
-                        rounded-lg pl-4 pr-4 pt-2 pb-2 border-black ml-1"
-            type="button"
+            className="inline-block px-4 py-2 text-sm font-medium 
+                      hover:bg-[#614242] focus:relative"
             onClick={onClickReset}
           >
             Reset
           </button>
-        </div>
+          <button
+            className="inline-block px-4 py-2 text-sm font-medium 
+                      hover:bg-[#614242] focus:relative"
+            onClick={onClickComplete}
+          >
+            (C)
+          </button>
+          <button
+            className="inline-block px-4 py-2 text-sm font-medium 
+                      hover:bg-[#614242] focus:relative"
+            onClick={onClickClose}
+          >
+            (X)
+          </button>
+        </span>
+
       </div>
     </>
   );
