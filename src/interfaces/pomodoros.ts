@@ -23,3 +23,9 @@ export type IPomodoro = {
   dateStopped?: Date;
   dateCompleted?: Date;
 }
+
+export type IPomodoroCreate = {
+  title: string;
+  completed: boolean;
+  dateCreated?: Date;
+}

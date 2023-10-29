@@ -16,6 +16,7 @@ limitations under the License.
 
 import React, { ReactElement, useContext } from 'react';
 
+
 export type IAppContext = {
   pageTitle: string;
 }
@@ -33,7 +34,7 @@ type IProps = {
 
 export const AppProvider = (props: IProps) => {
   const context = useContext<IAppContext>(AppContext);
-
+  
   return (
     <AppContext.Provider
       value={{

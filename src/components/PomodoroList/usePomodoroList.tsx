@@ -15,17 +15,26 @@ limitations under the License.
 */
 
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
+import { 
+  IPomodoroContext, 
+  PomodoroContext
+} from "../../context/PomodoroProvider";
 import { IPomodoro } from "../../interfaces/pomodoros";
 
 
-const defaultPomodoros: IPomodoro[] = [];
 
 export const usePomodoroList = () => {
+  const {
+    pomodoros,
+    setPomodoros
+  } = useContext<IPomodoroContext>(PomodoroContext);
+
+  // const pomodoroContext = useContext<IPomodoroContext>(PomodoroContext);
   const [loading, setLoading] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string>('');
-  const [pomodoros, setPomodoros] = useState<IPomodoro[]>(defaultPomodoros);
+  // const [pomodoros, setPomodoros] = useState<IPomodoro[]>(defaultPomodoros);
 
   useEffect(() => {
     (async () => {

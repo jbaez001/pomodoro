@@ -1,5 +1,5 @@
 /*
-Copyright 2021 Juan Baez
+Copyright 2023 Juan Baez
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,19 +14,4 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { PomodoroCreator } from "./components/PomodoroCreator";
-import { PomodoroList } from "./components/PomodoroList";
-import { PomodoroProvider } from "./context/PomodoroProvider";
-
-
-
-export const App = () => (
-  <PomodoroProvider>
-    <div className="flex justify-center h-screen bg-[#282c34]">
-      <div className="m-auto">
-        <PomodoroCreator/>
-        <PomodoroList/>
-      </div>
-    </div>
-  </PomodoroProvider>
-);
+export { PomodoroCreator } from './PomodoroCreator';
