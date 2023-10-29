@@ -15,13 +15,13 @@ limitations under the License.
 */
 
 import { useContext } from "react";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 } from 'uuid';
 
 import { 
   IPomodoroContext, 
   PomodoroContext 
 } from "../../context/PomodoroProvider";
-import { IPomodoro } from "../../interfaces/pomodoros";
+import { IPomodoro } from "../../types/pomodoros";
 
 const usePomodoroCreator = () => {
   const {
@@ -31,7 +31,7 @@ const usePomodoroCreator = () => {
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       const newPomodoro: IPomodoro = {
-        _id: uuidv4(),
+        _id: v4(),
         title: (e.target as HTMLInputElement).value
       };
       (e.target as HTMLInputElement).value = '';

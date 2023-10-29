@@ -15,8 +15,9 @@ limitations under the License.
 */
 
 import { createContext, ReactElement, useContext, useState } from "react";
+import { v4 } from "uuid";
 
-import { IPomodoro } from "../interfaces/pomodoros"
+import { IPomodoro } from "../types/pomodoros"
 
 export type IPomodoroContext = {
   pomodoros: IPomodoro[];
@@ -25,8 +26,15 @@ export type IPomodoroContext = {
   setPomodoros: React.Dispatch<React.SetStateAction<IPomodoro[]>>;
 }
 
+const defaultPomodoros: IPomodoro[] = [
+  {
+    _id: v4(),
+    title: 'Breathe'
+  }
+];
+
 const defaultContext: IPomodoroContext = {
-  pomodoros: [],
+  pomodoros: defaultPomodoros,
   addPomodoro: () => { return },
   deletePomodoro: () => { return },
   setPomodoros: () => { return },

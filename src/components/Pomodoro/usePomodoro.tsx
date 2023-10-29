@@ -25,7 +25,7 @@ import {
   IPomodoroContext, 
   PomodoroContext 
 } from '../../context/PomodoroProvider';
-import { IPomodoro } from '../../interfaces/pomodoros';
+import { IPomodoro } from '../../types/pomodoros';
 import { formatTimerString } from '../../utils/FormatTmerString';
 
 // default start time of 25 minutes
