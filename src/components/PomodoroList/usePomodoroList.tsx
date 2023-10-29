@@ -39,7 +39,7 @@ export const usePomodoroList = () => {
     (async () => {
       if (loading)
         return;
-    
+
       setLoading(true);
       setErrorMsg('');
 
