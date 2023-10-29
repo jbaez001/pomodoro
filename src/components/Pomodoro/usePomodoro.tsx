@@ -61,7 +61,7 @@ export const usePomodoro = (props: IPomodoro) => {
     formatTimerString(cardTimer),
   );
   const [cardIntervalId, setCardIntervalId] = useState<number>(0);
-  const [cardNameIsChanging, setToggleNameChange] = useState<boolean>(false);
+  const [cardNameIsChanging, setCardNameIsChanging] = useState<boolean>(false);
   const cardColor = getBgColor(cardState);
 
   const cardIs = (currentState: CardState) =>
@@ -113,7 +113,7 @@ export const usePomodoro = (props: IPomodoro) => {
 
   const onCardNameDoubleClick = () => {
     setPreviousCardName(cardName);
-    setToggleNameChange(true);
+    setCardNameIsChanging(true);
   };
 
   const onCardNameChange: ChangeEventHandler<HTMLInputElement> = 
@@ -125,7 +125,7 @@ export const usePomodoro = (props: IPomodoro) => {
   const onCardNameChangeKeyDown = 
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter' || e.key === 'Escape') {
-        setToggleNameChange(false);
+        setCardNameIsChanging(false);
         e.preventDefault();
         e.stopPropagation();
 
