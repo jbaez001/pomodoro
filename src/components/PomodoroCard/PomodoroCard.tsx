@@ -44,7 +44,7 @@ export const PomodoroCard = ({
   onCardNameDoubleClick,
   onCardNameChange,
   onCardNameChangeKeyDown
-}: IPomodoroCardProps)  => {
+}: IPomodoroCardProps) => {
 
   return (
     <>
