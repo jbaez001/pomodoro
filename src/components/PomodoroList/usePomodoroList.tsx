@@ -43,7 +43,6 @@ export const usePomodoroList = () => {
       setLoading(true);
       setErrorMsg('');
 
-      // fetch pomodoros
       axios.get<IPomodoro[]>('http://localhost:3000/pomodoros', {
         headers: {
           'Content-Type': 'application/json'
