@@ -14,44 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { useContext } from "react";
-import { v4 } from 'uuid';
+import { usePomodoroCreator } from "./usePomodoroCreator";
 
-import { 
-  IPomodoroContext, 
-  PomodoroContext 
-} from "../../context/PomodoroProvider";
-import { IPomodoro } from "../../types/pomodoros";
-
-const usePomodoroCreator = () => {
-  const {
-    addPomodoro,
-  } = useContext<IPomodoroContext>(PomodoroContext);
-
-  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Escape') {
-      (e.target as HTMLInputElement).value = '';
-    }
-    else if (e.key === 'Enter') {
-      const title: string = (e.target as HTMLInputElement).value;
-      
-      if ((title.length == 0) || (title.match(/^ *$/) !== null)) {
-        return;
-      }
-
-      const newPomodoro: IPomodoro = {
-        _id: v4(),
-        title: title
-      };
-      (e.target as HTMLInputElement).value = '';
-      addPomodoro(newPomodoro);
-    }
-  }
-
-  return {
-    onKeyDown
-  }
-}
 
 export const PomodoroCreator = () => {
   const {
