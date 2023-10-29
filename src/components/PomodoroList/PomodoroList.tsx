@@ -14,49 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import axios from "axios";
-import { useEffect, useState } from "react";
-
 import { Pomodoro } from "../Pomodoro/Pomodoro";
+import { usePomodoroList } from "./usePomodoroList";
 
-type IPomodoro = {
-  _id: string;
-  title: string;
-  completed: boolean;
-  dateCreated: Date;
-  dateStarted?: Date;
-  dateStopped?: Date;
-  dateCompleted?: Date;
-}
-
-const defaultPomodoros: IPomodoro[] = [];
 
 export const PomodoroList = () => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
-  const [errorMsg, setErrorMsg] = useState<string>('');
-  const [pomodoros, setPomodoros] = useState<IPomodoro[]>(defaultPomodoros);
-
-  useEffect(() => {
-    if (loading)
-      return;
-  
-    setLoading(true);
-
-    // fetch pomodoros
-    axios.get<IPomodoro[]>('http://localhost:3000/pomodoros', {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    }).then((response) => {
-      setPomodoros(response.data);
-      setLoading(false);
-    }).catch((err) => {
-      setErrorMsg(err);
-      setError(true);
-      setLoading(false);
-    });
-  }, []);
+  const {loading, errorMsg, pomodoros} = usePomodoroList();
 
   if (loading)
     return (
@@ -67,10 +30,10 @@ export const PomodoroList = () => {
 
   return (
     <>
-      {error && (
+      {errorMsg !== '' && (
         <h2>Error {errorMsg}</h2>
       )}
-      {pomodoros.map((pomodoro: IPomodoro) => (
+      {pomodoros.map((pomodoro) => (
         <Pomodoro
           key={pomodoro._id}
           _id={pomodoro._id} 
