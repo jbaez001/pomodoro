@@ -17,8 +17,8 @@ limitations under the License.
 import axios from 'axios';
 import React, { ChangeEventHandler,useEffect, useState } from 'react';
 
-import { IPomodoro } from '../../../interfaces/pomodoros';
-import { formatTimerString } from '../../../utils/FormatTmerString';
+import { IPomodoro } from '../../interfaces/pomodoros';
+import { formatTimerString } from '../../utils/FormatTmerString';
 
 // default start time of 25 minutes
 const defaultStartTime: number = 60 * 25;
