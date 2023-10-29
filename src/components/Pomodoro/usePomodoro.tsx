@@ -120,6 +120,18 @@ export const usePomodoro = (props: IPomodoro) => {
     resetInterval();
     resetTimer();
     setCardState(CardState.Neutral);
+
+    const request: IPomodoro = {
+      _id: props._id,
+      completed: false,
+    }
+
+    // submit API request
+    axios.put<IPomodoro>(
+      `http://localhost:3000/pomodoros/${props._id}`, request
+    ).then((response) => {
+      props = response.data as IPomodoro;
+    }).catch();
   };
 
   const onClickComplete = () => { 

@@ -41,8 +41,6 @@ const usePomodoroCreator = () => {
         newPomodoro,
         { headers: { 'Content-Type': 'application/json' } }
       ).then((response) => {
-        // eslint-disable-next-line no-console
-        console.log('response:', response);
         addPomodoro(response.data as IPomodoro);
 
         (e.target as HTMLInputElement).value = 'Create New Pomodoro';
