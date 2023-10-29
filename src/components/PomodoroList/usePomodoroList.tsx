@@ -17,16 +17,8 @@ limitations under the License.
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+import { IPomodoro } from "../../interfaces/pomodoros";
 
-type IPomodoro = {
-  _id: string;
-  title: string;
-  completed: boolean;
-  dateCreated: Date;
-  dateStarted?: Date;
-  dateStopped?: Date;
-  dateCompleted?: Date;
-}
 
 const defaultPomodoros: IPomodoro[] = [];
 
