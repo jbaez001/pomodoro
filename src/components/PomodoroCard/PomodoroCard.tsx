@@ -20,7 +20,7 @@ import {
   MouseEventHandler
 } from "react";
 
-type IPomodoroProps = {
+type IPomodoroCardProps = {
   cardName: string;
   cardColor: string;
   cardText: string;
@@ -31,7 +31,6 @@ type IPomodoroProps = {
   onCardNameDoubleClick?: MouseEventHandler<HTMLElement>;
   onCardNameChange?: ChangeEventHandler<HTMLElement>;
   onCardNameChangeKeyDown?: KeyboardEventHandler<HTMLElement>;
-
 }
 
 export const PomodoroCard = ({ 
@@ -45,7 +44,7 @@ export const PomodoroCard = ({
   onCardNameDoubleClick,
   onCardNameChange,
   onCardNameChangeKeyDown
-}: IPomodoroProps)  => {
+}: IPomodoroCardProps)  => {
 
   return (
     <>
