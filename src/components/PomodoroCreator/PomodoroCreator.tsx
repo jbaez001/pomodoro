@@ -43,7 +43,7 @@ const usePomodoroCreator = () => {
       ).then((response) => {
         addPomodoro(response.data as IPomodoro);
 
-        (e.target as HTMLInputElement).value = 'Create New Pomodoro';
+        (e.target as HTMLInputElement).value = '';
       }).catch((error) => {
         // eslint-disable-next-line no-console
         console.log('error:', error);

@@ -94,7 +94,7 @@ export const usePomodoro = (props: IPomodoro) => {
     if (cardIntervalId !== 0)
       return;
 
-    if (cardIs(CardState.Expired) || cardIs(CardState.Stopped)) 
+    if (cardIs(CardState.Expired)) 
       resetTimer();
 
     setCardLastUpdate(Date.now());
