@@ -29,7 +29,10 @@ const usePomodoroCreator = () => {
   } = useContext<IPomodoroContext>(PomodoroContext);
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Escape') {
+      (e.target as HTMLInputElement).value = '';
+    }
+    else if (e.key === 'Enter') {
       const title: string = (e.target as HTMLInputElement).value;
       
       if ((title.length == 0) || (title.match(/^ *$/) !== null)) {
