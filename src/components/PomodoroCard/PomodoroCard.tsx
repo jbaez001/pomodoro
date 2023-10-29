@@ -14,209 +14,50 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { 
+  ChangeEventHandler, 
+  KeyboardEventHandler, 
+  MouseEventHandler
+} from "react";
 
-import { formatTimerString } from '../../utils/FormatTmerString';
+type IPomodoroProps = {
+  cardName: string;
+  cardColor: string;
+  cardText: string;
+  cardNameIsChanging: boolean;
+  onClickStart?: MouseEventHandler<HTMLElement>;
+  onClickStop?: MouseEventHandler<HTMLElement>;
+  onClickReset?: MouseEventHandler<HTMLElement>;
+  onCardNameDoubleClick?: MouseEventHandler<HTMLElement>;
+  onCardNameChange?: ChangeEventHandler<HTMLElement>;
+  onCardNameChangeKeyDown?: KeyboardEventHandler<HTMLElement>;
 
-// default start time of 25 minutes
-const defaultStartTime: number = 60 * 25;
-
-/**
- * CardState represents the current state of the card
- */
-enum CardState {
-  Neutral,
-  Started,
-  Stopped,
-  Expired,
 }
 
-type IPomodoro = {
-  _id: string;
-  title: string;
-  completed?: boolean;
-  dateCreated?: Date;
-  dateStarted?: Date;
-  dateStopped?: Date;
-  dateCompleted?: Date;
-}
-
-type IPomodoroUpdateRequest = {
-  _id: string;
-  title?: string;
-  completed?: boolean;
-  dateCreated?: Date;
-  dateStarted?: Date;
-  dateStopped?: Date;
-  dateCompleted?: Date;
-}
-
-const getBgColor = (cardState: number): string => {
-  switch (cardState) {
-  case CardState.Neutral:
-    return "bg-white";
-
-  case CardState.Started:
-    return "bg-yellow-100";
-
-  case CardState.Stopped:
-    return "bg-red-300";
-
-  case CardState.Expired:
-    return "bg-green-100";
-
-  default:
-    return "bg-white";
-  }
-};
-
-export const PomodoroCard = (props: IPomodoro) => {
-  const [previousCardName, setPreviousCardName] = useState<string>('');
-  const [cardName, setCardName] = useState<string>(props.title);
-  const [cardState, setCardState] = useState<CardState>(CardState.Neutral);
-  const [cardTimer, setCardTimer] = useState<number>(defaultStartTime);
-  const [cardLastUpdate, setCardLastUpdate] = useState<number>(0);
-  const [cardText, setCardText] = useState<string>(
-    formatTimerString(cardTimer),
-  );
-  const [cardIntervalId, setCardIntervalId] = useState<number>(0);
-  const [toggleNameChange, setToggleNameChange] = useState<boolean>(false);
-
-  const cardIs = (currentState: CardState) =>
-    (cardState === currentState);
-
-  const resetTimer = () => {
-    setCardTimer(defaultStartTime);
-    setCardText(formatTimerString(defaultStartTime));
-  };
-
-  const resetInterval = () => {
-    if (cardIntervalId !== 0) {
-      window.clearInterval(cardIntervalId);
-      setCardIntervalId(0);
-    }
-  };
-
-  const handleStart = () => {
-    if (cardIntervalId !== 0) {
-      return;
-    }
-
-    if (cardIs(CardState.Expired) || cardIs(CardState.Stopped)) {
-      resetTimer();
-    }
-
-    setCardLastUpdate(Date.now());
-
-    const intervalId: number = window.setInterval(() => {
-      setCardTimer((previousState: number) => previousState - 1);
-    }, 1000);
-
-    setCardIntervalId(intervalId);
-    setCardState(CardState.Started);
-
-  };
-  
-  const handleStop = () => {
-    if (cardIs(CardState.Neutral)) {
-      return;
-    }
-    resetInterval();
-    setCardState(CardState.Stopped);
-  };
-
-  const handleReset = () => {
-    resetInterval();
-    resetTimer();
-    setCardState(CardState.Neutral);
-  };
-
-  const handleNameDoubleClick = () => {
-    setPreviousCardName(cardName);
-    setToggleNameChange(true);
-  };
-
-  const handleInputNameChange = (e: React.FormEvent<HTMLInputElement>) => {
-    const newCardName: string = (e.target as HTMLInputElement).value;
-    setCardName(newCardName);
-
-  };
-
-  const handleInputNameChangeOnKeyDown = 
-    (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === 'Enter' || e.key === 'Escape') {
-        setToggleNameChange(false);
-        e.preventDefault();
-        e.stopPropagation();
-
-        if ((e.key === 'Escape') || (cardName.length === 0) ||
-        (cardName.match(/^ *$/) !== null)) {
-          setCardName(previousCardName);
-        } else {
-          const updateRequest: IPomodoro = {
-            _id: props._id,
-            title: cardName
-          }
-
-          axios.put<IPomodoro>(`http://localhost:3000/pomodoros/${props._id}`, 
-            updateRequest).then((response) => {
-            props = response.data;
-          }).catch(() => {setCardName(previousCardName)});
-        }
-      }
-    };
-
-  // hook for cardTimer
-  useEffect(() => {
-
-    if (cardIs(CardState.Neutral)) {
-      return;
-    }
-    // get current timestamp and calculate seconds elapsed since then
-    const currentTimestamp = Date.now();
-    const secondsElapsed = Math.floor(
-      (currentTimestamp - cardLastUpdate) / 1000
-    );
-
-    // if more than one second has elapsed, then ensure that we update
-    // the card timer value accordingly
-    if (secondsElapsed > 1) {
-      const newTimerValue = cardTimer - secondsElapsed;
-      setCardTimer(newTimerValue > 0 ? newTimerValue : 0);
-    }
-
-    setCardLastUpdate(currentTimestamp);
-    setCardText(formatTimerString(cardTimer));
-    
-    // check if card has expired
-    if (cardTimer <= 0) {
-      resetInterval();
-      setCardState(CardState.Expired);
-
-      const updateRequest: IPomodoroUpdateRequest = {
-        _id: props._id,
-        completed: true
-      }
-
-      axios.put<IPomodoro>(`http://localhost:3000/pomodoros/${props._id}`,
-        updateRequest).then((response) => {
-        props = response.data;
-      }).catch();
-    }
-  }, [cardTimer]);
+export const PomodoroCard = ({ 
+  cardName, 
+  cardColor, 
+  cardText,
+  cardNameIsChanging,
+  onClickStart,
+  onClickStop,
+  onClickReset,
+  onCardNameDoubleClick,
+  onCardNameChange,
+  onCardNameChangeKeyDown
+}: IPomodoroProps)  => {
 
   return (
     <>
       <div
-        className={`max-w-sm mx-auto p-6 m-4 ${getBgColor(cardState)}
+        className={`max-w-sm mx-auto p-6 m-4 ${cardColor}
                     rounded-lg shadow-xl text-center border-4 border-solid`}
       >
         <div className="flex-shrink-0 pb-4 max-w-[290px]">
-          {!toggleNameChange ? (
+          {!cardNameIsChanging ? (
             <p
               className="text-black text-3xl font-bold"
-              onDoubleClick={handleNameDoubleClick}
+              onDoubleClick={onCardNameDoubleClick}
             >
               {cardName}
             </p>
@@ -225,8 +66,8 @@ export const PomodoroCard = (props: IPomodoro) => {
               type="text"
               className="rounded-lg"
               value={cardName}
-              onChange={handleInputNameChange}
-              onKeyDown={handleInputNameChangeOnKeyDown}
+              onChange={onCardNameChange}
+              onKeyDown={onCardNameChangeKeyDown}
             />
           )}
         </div>
@@ -238,7 +79,7 @@ export const PomodoroCard = (props: IPomodoro) => {
             className="bg-[#6d4a4a] hover:bg-[#614242] text-white
                         rounded-lg pl-4 pr-4 pt-2 pb-2 border-black mr-1"
             type="button"
-            onClick={handleStart}
+            onClick={onClickStart}
           >
             Start
           </button>
@@ -246,7 +87,7 @@ export const PomodoroCard = (props: IPomodoro) => {
             className="bg-[#6d4a4a] hover:bg-[#614242] text-white
                         rounded-lg pl-4 pr-4 pt-2 pb-2 border-black ml-1 mr-1"
             type="button"
-            onClick={handleStop}
+            onClick={onClickStop}
           >
             Stop
           </button>
@@ -254,7 +95,7 @@ export const PomodoroCard = (props: IPomodoro) => {
             className="bg-[#6d4a4a] hover:bg-[#614242] text-white
                         rounded-lg pl-4 pr-4 pt-2 pb-2 border-black ml-1"
             type="button"
-            onClick={handleReset}
+            onClick={onClickReset}
           >
             Reset
           </button>

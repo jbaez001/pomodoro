@@ -17,7 +17,7 @@ limitations under the License.
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-import { PomodoroCard } from "../PomodoroCard";
+import { Pomodoro } from "../Pomodoro/Pomodoro";
 
 type IPomodoro = {
   _id: string;
@@ -62,7 +62,7 @@ export const PomodoroList = () => {
         <h2>Error {errorMsg}</h2>
       )}
       {pomodoros.map((pomodoro: IPomodoro) => (
-        <PomodoroCard
+        <Pomodoro
           key={pomodoro._id}
           _id={pomodoro._id} 
           title={pomodoro.title}
