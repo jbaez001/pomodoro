@@ -138,12 +138,11 @@ export const Pomodoro = (props: IPomodoro) => {
     setToggleNameChange(true);
   };
 
-  // eslint-disable-next-line max-len
-  const onCardNameChange: ChangeEventHandler<HTMLInputElement> = (e: React.FormEvent<HTMLInputElement>) => {
-    const newCardName: string = (e.target as HTMLInputElement).value;
-    setCardName(newCardName);
-
-  };
+  const onCardNameChange: ChangeEventHandler<HTMLInputElement> = 
+    (e: React.FormEvent<HTMLInputElement>) => {
+      const newCardName: string = (e.target as HTMLInputElement).value;
+      setCardName(newCardName);
+    };
 
   const onCardNameChangeKeyDown = 
     (e: React.KeyboardEvent<HTMLInputElement>) => {
