@@ -91,13 +91,11 @@ export const Pomodoro = (props: IPomodoro) => {
   };
 
   const onClickStart = () => {
-    if (cardIntervalId !== 0) {
+    if (cardIntervalId !== 0)
       return;
-    }
 
-    if (cardIs(CardState.Expired) || cardIs(CardState.Stopped)) {
+    if (cardIs(CardState.Expired) || cardIs(CardState.Stopped)) 
       resetTimer();
-    }
 
     setCardLastUpdate(Date.now());
 
@@ -111,9 +109,9 @@ export const Pomodoro = (props: IPomodoro) => {
   };
   
   const onClickStop = () => {
-    if (cardIs(CardState.Neutral)) {
+    if (cardIs(CardState.Neutral))
       return;
-    }
+
     resetInterval();
     setCardState(CardState.Stopped);
   };

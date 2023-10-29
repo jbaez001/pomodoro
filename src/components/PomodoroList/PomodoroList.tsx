@@ -32,12 +32,17 @@ type IPomodoro = {
 const defaultPomodoros: IPomodoro[] = [];
 
 export const PomodoroList = () => {
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [pomodoros, setPomodoros] = useState<IPomodoro[]>(defaultPomodoros);
 
-  useEffect(() => { 
+  useEffect(() => {
+    if (loading)
+      return;
+  
+    setLoading(true);
+
     // fetch pomodoros
     axios.get<IPomodoro[]>('http://localhost:3000/pomodoros', {
       headers: {
@@ -53,11 +58,15 @@ export const PomodoroList = () => {
     });
   }, []);
 
+  if (loading)
+    return (
+      <>
+        <h1>loading pomodoros...</h1>
+      </>
+    )
+
   return (
     <>
-      {loading && (
-        <h1>loading</h1>
-      )}
       {error && (
         <h2>Error {errorMsg}</h2>
       )}
