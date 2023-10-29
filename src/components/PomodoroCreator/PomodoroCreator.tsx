@@ -14,14 +14,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import axios from "axios";
 import { useContext } from "react";
+import { v4 as uuidv4 } from 'uuid';
 
 import { 
   IPomodoroContext, 
   PomodoroContext 
 } from "../../context/PomodoroProvider";
-import { IPomodoro, IPomodoroCreate } from "../../interfaces/pomodoros";
+import { IPomodoro } from "../../interfaces/pomodoros";
 
 const usePomodoroCreator = () => {
   const {
@@ -30,24 +30,12 @@ const usePomodoroCreator = () => {
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      const newPomodoro: IPomodoroCreate = {
-        title: (e.target as HTMLInputElement).value,
-        completed: false,
-        dateCreated: new Date()
+      const newPomodoro: IPomodoro = {
+        _id: uuidv4(),
+        title: (e.target as HTMLInputElement).value
       };
-
-      axios.post<IPomodoroCreate>(
-        'http://localhost:3000/pomodoros/',
-        newPomodoro,
-        { headers: { 'Content-Type': 'application/json' } }
-      ).then((response) => {
-        addPomodoro(response.data as IPomodoro);
-
-        (e.target as HTMLInputElement).value = '';
-      }).catch((error) => {
-        // eslint-disable-next-line no-console
-        console.log('error:', error);
-      });
+      (e.target as HTMLInputElement).value = '';
+      addPomodoro(newPomodoro);
     }
   }
 

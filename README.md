@@ -1,6 +1,6 @@
 # Pomodoro
 
-Wanted to give Vite, ReatJS & TypeScript ago and try writing something like a Pomodoro application.
+Personal project as I go through the motions of learning Typescript & other JS related projects.
 
 ## Building
 

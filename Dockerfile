@@ -1,5 +1,5 @@
 # builder
-ARG TAG=16-alpine
+ARG TAG=20.9-alpine3.18
 FROM node:$TAG as builder
 
 WORKDIR /app
@@ -11,5 +11,5 @@ RUN cd /app && \
     yarn build
 
 # deployment
-FROM nginx:stable-alpine
+FROM nginxinc/nginx-unprivileged:alpine3.18-perl
 COPY --from=builder /app/dist /usr/share/nginx/html

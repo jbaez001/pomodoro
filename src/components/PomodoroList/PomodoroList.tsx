@@ -14,32 +14,28 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+// eslint-disable-next-line max-len
+import { useContext } from "react";
+
+import { 
+  IPomodoroContext, 
+  PomodoroContext 
+} from "../../context/PomodoroProvider";
 import { Pomodoro } from "../Pomodoro";
-import { usePomodoroList } from "./usePomodoroList";
 
 
 export const PomodoroList = () => {
-  const {loading, errorMsg, pomodoros} = usePomodoroList();
-
-  if (loading)
-    return (
-      <>
-        <h1>loading pomodoros...</h1>
-      </>
-    )
+  const {
+    pomodoros,
+  } = useContext<IPomodoroContext>(PomodoroContext);
 
   return (
     <>
-      {errorMsg !== '' && (
-        <h2>Error {errorMsg}</h2>
-      )}
       {pomodoros.map((pomodoro) => (
         <Pomodoro
           key={pomodoro._id}
           _id={pomodoro._id} 
-          title={pomodoro.title}
-          completed={pomodoro.completed}
-          dateCreated={pomodoro.dateCreated}/>
+          title={pomodoro.title}/>
       ))}
     </>
   )

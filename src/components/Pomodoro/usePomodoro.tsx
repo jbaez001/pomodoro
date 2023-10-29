@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import axios from 'axios';
 import React, { 
   ChangeEventHandler,
   useContext,
@@ -59,9 +58,7 @@ const getBgColor = (cardState: CardState): string => {
 };
 
 export const usePomodoro = (props: IPomodoro) => {
-  const {
-    deletePomodoro,
-  } = useContext<IPomodoroContext>(PomodoroContext);
+  const { deletePomodoro } = useContext<IPomodoroContext>(PomodoroContext);
   const [previousCardName, setPreviousCardName] = useState<string>('');
   const [cardName, setCardName] = useState<string>(
     props.title !==undefined ? props.title : '');
@@ -120,40 +117,11 @@ export const usePomodoro = (props: IPomodoro) => {
     resetInterval();
     resetTimer();
     setCardState(CardState.Neutral);
-
-    const request: IPomodoro = {
-      _id: props._id,
-      completed: false,
-    }
-
-    // submit API request
-    axios.put<IPomodoro>(
-      `http://localhost:3000/pomodoros/${props._id}`, request
-    ).then((response) => {
-      props = response.data as IPomodoro;
-    }).catch();
   };
 
   const onClickComplete = () => { 
-    // mark the card as expired & reset it
     setCardState(CardState.Expired);
     resetInterval();
-    resetTimer();
-
-    const request: IPomodoro = {
-      _id: props._id,
-      completed: true
-    }
-
-    // submit API request
-    axios.put<IPomodoro>(
-      `http://localhost:3000/pomodoros/${props._id}`, request
-    ).then((response) => {
-      props = response.data as IPomodoro;
-    }).catch(() => { 
-      setCardState(CardState.Neutral);
-      props.completed = false;
-    });
   };
 
   const onClickClose = () => { 
@@ -181,16 +149,6 @@ export const usePomodoro = (props: IPomodoro) => {
         if ((e.key === 'Escape') || (cardName.length === 0) ||
         (cardName.match(/^ *$/) !== null)) {
           setCardName(previousCardName);
-        } else {
-          const updateRequest: IPomodoro = {
-            _id: props._id,
-            title: cardName
-          }
-
-          axios.put<IPomodoro>(`http://localhost:3000/pomodoros/${props._id}`, 
-            updateRequest).then((response) => {
-            props = response.data;
-          }).catch(() => {setCardName(previousCardName)});
         }
       }
     };
@@ -221,16 +179,6 @@ export const usePomodoro = (props: IPomodoro) => {
     if (cardTimer <= 0) {
       resetInterval();
       setCardState(CardState.Expired);
-
-      const updateRequest: IPomodoro = {
-        _id: props._id,
-        completed: true
-      }
-
-      axios.put<IPomodoro>(`http://localhost:3000/pomodoros/${props._id}`,
-        updateRequest).then((response) => {
-        props = response.data;
-      }).catch();
     }
   }, [cardTimer]);
 

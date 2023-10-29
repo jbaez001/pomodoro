@@ -15,17 +15,6 @@ limitations under the License.
 */
 
 export type IPomodoro = {
-  _id: string;
+  _id?: string;
   title?: string;
-  completed?: boolean;
-  dateCreated?: Date;
-  dateStarted?: Date;
-  dateStopped?: Date;
-  dateCompleted?: Date;
-}
-
-export type IPomodoroCreate = {
-  title: string;
-  completed: boolean;
-  dateCreated?: Date;
 }
